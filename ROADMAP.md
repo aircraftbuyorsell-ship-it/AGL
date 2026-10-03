@@ -143,7 +143,96 @@ Test the generic graph against at least one non-ABOS implementation.
 
 This is important for demonstrating that AGL is not simply an ABOS-specific architecture renamed as a generic standard.
 
-## 4. GitHub Project mapping
+## 4. Interoperability integration program
+
+AGL will progressively integrate the available external standards and protocols through adapters and mappings. Integration means **consume/reference/export**, not replace or redefine the external standard.
+
+### Integration order
+
+**I-01 — OpenTelemetry**
+- ingest trace, metric and log context;
+- bind `trace_id/span_id` to AGL execution;
+- map runtime measurements;
+- preserve external telemetry references.
+
+OTLP is a stable OpenTelemetry protocol for traces, metrics and logs and supports gRPC and HTTP transports. citeturn0search0turn0search11
+
+**I-02 — OpenLineage**
+- ingest run/job/dataset events;
+- map input/output lineage to graph edges;
+- preserve lineage event references.
+
+OpenLineage publishes an OpenAPI specification and machine-readable event API. citeturn0search9
+
+**I-03 — W3C PROV**
+- map Entity / Activity / Agent;
+- map provenance relations;
+- support provenance export/import.
+
+**I-04 — MCP**
+- govern tool discovery/invocation;
+- attach APL authorization;
+- record tool execution and result evidence.
+
+**I-05 — A2A**
+- govern agent-to-agent task/message exchange;
+- bind identity and delegation;
+- record task/result lineage.
+
+A2A 1.0 defines protocol operations and bindings including JSON-RPC, gRPC and HTTP/REST, with official SDKs for multiple languages. citeturn0search4turn0search2
+
+**I-06 — SPIFFE**
+- bind workload identity to service/agent/execution;
+- preserve identity and credential evidence.
+
+**I-07 — SLSA / in-toto**
+- bind source revision → build → artifact → deployment;
+- connect software provenance to execution.
+
+**I-08 — ODRL**
+- map permissions, prohibitions, duties and constraints into APL policy context;
+- record policy decision evidence.
+
+**I-09 — NIST AI RMF**
+- map governance/risk controls to AGL evidence;
+- maintain versioned control references.
+
+**I-10 — ISO/IEC 42001**
+- map AI management-system controls to AGL evidence;
+- do not copy licensed standard text into AGL.
+
+**I-11 — EU AI Act**
+- map applicable regulatory requirements to evidence/control references;
+- keep legal interpretation outside AGL core.
+
+**I-12 — Gaia-X**
+- map trust, identity, policy and service-composition mechanisms;
+- preserve ecosystem-specific references.
+
+### Integration gate for every adapter
+
+Every integration must pass:
+
+`DISCOVER → AUTHENTICATE → AUTHORIZE → EXECUTE/OBSERVE → RECORD → LINK → RECONSTRUCT`
+
+Required adapter properties:
+- official source/specification identified;
+- API/SDK/schema used where available;
+- version recorded;
+- external identifier preserved;
+- no fabricated evidence;
+- failure/absence represented explicitly;
+- AEL evidence link created;
+- reconstruction test added;
+- CI validation added.
+
+### API availability rule
+
+API availability is preferred, not mandatory.
+
+Where an official API/protocol/SDK exists, AGL should integrate against it rather than scrape or manually reproduce data. Where only a specification, schema or legal/control framework exists, AGL uses a versioned mapping layer.
+
+## 5. GitHub Project mapping
 
 Recommended flow:
 
