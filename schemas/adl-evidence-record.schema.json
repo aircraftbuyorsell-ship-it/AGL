@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/aircraftbuyorsell-ship-it/AGL/blob/main/schemas/adl-evidence-record.schema.json",
-  "title": "ADL Evidence Record",
-  "description": "Minimal machine-readable evidence record for AGL ADL v0.1.0.",
+  "title": "LEGACY — ADL Evidence Record (use AEL)",
+  "description": "Legacy compatibility schema retained for history. New AGL evidence records MUST use schemas/ael-evidence-record.schema.json.",
   "type": "object",
   "required": [
     "id",
