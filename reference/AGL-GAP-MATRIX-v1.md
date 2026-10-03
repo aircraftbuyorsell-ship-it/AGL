@@ -14,7 +14,7 @@ A GAP does not mean that no implementation exists. It means that the current res
 
 | # | AGL requirement | Relevant existing standards | Classification | Finding |
 |---:|---|---|---|---|
-| 1 | ADL — agent definition | A2A Agent Card, PROV Agent | PARTIAL | A2A defines agent identity/capabilities/skills/auth; PROV defines agents. Neither is a complete implementation-neutral agent definition language for AGL governance. |
+| 1 | ADL — agent definition | Established ADL specifications, A2A Agent Card, PROV Agent | FULL / COMPLEMENTARY | Public ADL specifications already provide machine-readable agent-definition semantics. AGL should reference/map to ADL rather than claim a new agent-definition language; AGL's contribution is the linkage from definition to policy, execution and evidence. |
 | 2 | APL — policy layer | ODRL, OAuth/OIDC, policy engines | PARTIAL | Policy, permissions and identity mechanisms exist. AGL-specific binding of identity → capability → authority → policy → decision → execution remains broader. |
 | 3 | AEL — evidence layer | W3C PROV, OpenTelemetry | PARTIAL | Provenance and telemetry are mature building blocks. AGL needs an evidence contract tied to governance decisions and reconstructable service execution. |
 | 4 | Relationship / dependency graph | PROV, Gaia-X | PARTIAL | PROV models influence, delegation, derivation and responsibility; Gaia-X models service composition and dependsOn. AGL needs a common execution-oriented graph spanning agentic components. |
@@ -47,7 +47,7 @@ A GAP does not mean that no implementation exists. It means that the current res
 
 ## Key correction to the original gap hypothesis
 
-The research shows that PROV is closer to AGL than initially assumed.
+The research shows that PROV and established ADL specifications cover more of the adjacent space than the initial hypothesis assumed.
 
 PROV explicitly models Entity, Activity, Agent, responsibility, association, attribution, communication, delegation and derivation.
 
@@ -61,7 +61,7 @@ That statement would be false.
 
 The more defensible gap is:
 
-> No single identified standard combines these existing provenance, policy, identity, interoperability, lineage, observability, service-composition and governance mechanisms into one end-to-end, execution-oriented record and reconstruction contract for autonomous/agentic services.
+> No single identified standard in the reviewed set combines ADL-style agent definition, provenance, policy, identity, interoperability, lineage, observability, service composition and governance into one end-to-end, execution-oriented record and reconstruction contract for autonomous/agentic services.
 
 ## What AGL should NOT reinvent
 
