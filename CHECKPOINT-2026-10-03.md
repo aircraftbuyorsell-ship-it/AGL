@@ -70,7 +70,7 @@ The canonical chain is:
 
 `RUNTIME LOGS / METRICS / TRACES → EXECUTION → MEASUREMENT UNIT → AGGREGATE → VALUE / COST / PRICE METRIC`
 
-The measurement layer must distinguish measured facts from derived economic calculations. Missing data is not zero, and every quantified claim must remain traceable to executions and evidence.
+The measurement layer must distinguish measured facts from derived economic calculations. Processed data volume, especially tokens where available, is the primary generic quantitative basis for AI/agentic processing. Missing data is not zero, and every quantified claim must remain traceable to executions and evidence.
 
 ## Next gate
 
