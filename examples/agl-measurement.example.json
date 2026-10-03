@@ -1,6 +1,4 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Illustrative measurement fixture; not a production ABOS execution record.",
   "measurement_id": "measurement-execution-001",
   "use_case": "aircraft-purchase-verification",
   "measurement_type": "processing_volume",
@@ -28,5 +26,7 @@
   "calculation_method": "total_processed_tokens / normalization_factor",
   "calculation_version": "agl-measurement-v1",
   "generated_at": "2026-10-03T05:01:08Z",
-  "integrity": "unverified"
+  "integrity": {
+    "state": "unverified"
+  }
 }
