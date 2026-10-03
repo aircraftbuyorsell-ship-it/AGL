@@ -56,6 +56,22 @@ The example Execution Graph and backward reconstruction test were already confir
 
 This checkpoint does **not** claim production AGL conformance for ABOS.
 
+## Additional requirement: Runtime Observability and Measurement
+
+AGL must not stop at governance and provenance. A governed execution must also be quantitatively observable.
+
+The current foundation therefore includes:
+
+- `reference/AGL-RUNTIME-OBSERVABILITY-v1.md`
+- `reference/AGL-MEASUREMENT-UNIT-v1.md`
+- `schemas/agl-measurement.schema.json`
+
+The canonical chain is:
+
+`RUNTIME LOGS / METRICS / TRACES → EXECUTION → MEASUREMENT UNIT → AGGREGATE → VALUE / COST / PRICE METRIC`
+
+The measurement layer must distinguish measured facts from derived economic calculations. Missing data is not zero, and every quantified claim must remain traceable to executions and evidence.
+
 ## Next gate
 
 The next gate is real execution evidence:
