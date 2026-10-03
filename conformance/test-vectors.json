@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AGL Conformance Test Vectors",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "profile", "expected"],
+    "properties": {
+      "id": { "type": "string" },
+      "profile": {
+        "type": "string",
+        "enum": ["CORE", "SECURE", "INTEGRATED"]
+      },
+      "expected": {
+        "type": "string",
+        "enum": ["ALLOW", "DENY", "REQUIRE_HUMAN_APPROVAL", "ESCALATE", "BLOCKED", "COMPLETED", "FAILED", "REPLAYABLE"]
+      },
+      "notes": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}
