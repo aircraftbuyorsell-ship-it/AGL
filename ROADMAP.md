@@ -155,14 +155,10 @@ AGL will progressively integrate the available external standards and protocols 
 - map runtime measurements;
 - preserve external telemetry references.
 
-OTLP is a stable OpenTelemetry protocol for traces, metrics and logs and supports gRPC and HTTP transports. citeturn0search0turn0search11
-
 **I-02 — OpenLineage**
 - ingest run/job/dataset events;
 - map input/output lineage to graph edges;
 - preserve lineage event references.
-
-OpenLineage publishes an OpenAPI specification and machine-readable event API. citeturn0search9
 
 **I-03 — W3C PROV**
 - map Entity / Activity / Agent;
@@ -178,8 +174,6 @@ OpenLineage publishes an OpenAPI specification and machine-readable event API. �
 - govern agent-to-agent task/message exchange;
 - bind identity and delegation;
 - record task/result lineage.
-
-A2A 1.0 defines protocol operations and bindings including JSON-RPC, gRPC and HTTP/REST, with official SDKs for multiple languages. citeturn0search4turn0search2
 
 **I-06 — SPIFFE**
 - bind workload identity to service/agent/execution;
@@ -208,6 +202,15 @@ A2A 1.0 defines protocol operations and bindings including JSON-RPC, gRPC and HT
 **I-12 — Gaia-X**
 - map trust, identity, policy and service-composition mechanisms;
 - preserve ecosystem-specific references.
+
+**I-13 — NVIDIA OpenShell**
+- map sandbox/runtime enforcement observations into AGL;
+- preserve effective-policy and sandbox identifiers;
+- bind runtime enforcement evidence to execution;
+- keep OpenShell enforcement distinct from the APL authorization decision;
+- record policy/enforcement evidence without fabricating integrity.
+
+NVIDIA documents OpenShell as a runtime with a gateway control plane and sandbox supervisor, enforcing filesystem, process, network and credential/inference boundaries through sandbox policies. AGL therefore treats OpenShell as a runtime-enforcement integration, not as a replacement for APL. citeturn0search8turn0search10
 
 ### Integration gate for every adapter
 
