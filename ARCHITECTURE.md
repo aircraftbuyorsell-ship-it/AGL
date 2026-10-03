@@ -25,7 +25,7 @@ Applications / Agents
           |
           v
 +-------------------+
-|   AGL / ADL       |
+|   AGL / AEL       |
 | actor chain       |
 | execution trace   |
 | evidence          |
@@ -48,9 +48,9 @@ APL answers:
 - Is human approval required?
 - What escalation path applies?
 
-## ADL — evidence plane
+## AEL — evidence plane
 
-ADL records:
+AEL records:
 - actor and delegation chain
 - policy and policy version
 - requested and executed action
