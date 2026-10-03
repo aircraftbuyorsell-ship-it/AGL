@@ -110,6 +110,10 @@
         "root_policy": { "$ref": "#/$defs/id" },
         "authorization_decision": { "$ref": "#/$defs/id" },
         "graph_root": { "$ref": "#/$defs/id" },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        },
         "parent_execution_id": { "$ref": "#/$defs/id" }
       }
     },
