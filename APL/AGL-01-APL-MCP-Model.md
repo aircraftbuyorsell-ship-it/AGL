@@ -2,7 +2,7 @@
 
 Status: Draft extraction / implementation validation
 Primary implementation source: ABOS gateway/src/apl.js
-Secondary source requested: APL_core_compact_pack.zip
+Secondary source set: Library `apl_core_skill.md` + `apl_core_compact.pretty.json` + `apl_core_compact.min.json` + `apl_core_compact.min.json.gz`
 
 ## 1. Purpose
 
@@ -121,23 +121,24 @@ The current apl.js implementation has an in-process manifest registry (ADL_MANIF
 
 This is an implementation extension, not a contradiction.
 
-## 9. Compact-pack validation status
+## 9. Compact-source validation
 
-The requested APL_core_compact_pack.zip was not available in the current searchable file library, and it was not found as a visible root artifact during the initial ABOS repository inspection.
+The Library compact source set has now been reviewed. It confirms:
 
-Therefore compact-pack-derived claims are explicitly pending rather than invented.
+1. identity and required manifest objects;
+2. capability/permission separation;
+3. permission pattern `ACTION + RESOURCE + CONDITION`;
+4. autonomy A0-A4;
+5. audit levels APL-A0 through APL-A3;
+6. trust levels APL-T0 through APL-T4 and associated security inputs;
+7. APL communication envelope: version, message ID, sender, receiver, intent, context, security, payload;
+8. canonical APL error vocabulary;
+9. explicit separation of APL, MCP, API/OpenAPI and Base44.
 
-## 10. Required next validation
+The compact source also contains ABOS-specific aviation namespaces, aircraft objects, ATI Passport, agent names and transaction deny defaults. These remain outside generic AGL Core.
 
-When the compact pack is available, compare:
+The compact source does not provide a sufficiently complete formal transport grammar or direct A2A runtime contract to close those gaps.
 
-1. tool manifest schema;
-2. capability/resource types;
-3. request/invocation grammar;
-4. A2A agent capability model;
-5. session/state semantics;
-6. event types;
-7. registry bindings;
-8. versioning/error semantics.
+## 10. Result
 
-Only matching elements should be promoted into the normative AGL-01 core.
+Compact-source validation is CLOSED for semantic extraction. Formal grammar and direct A2A runtime validation remain OPEN.
