@@ -22,10 +22,14 @@ Date: 2026-10-03
 | MCP | tool access | generated MCP surface | governed MCP boundary | ALIGN |
 | Registry | registry concept | in-process manifest registry | discovery binding | PARTIAL |
 | Errors | APL error concepts | APL errors | compatibility vocabulary | ALIGN |
-| Formal grammar | structured protocol examples | JSON/tool schemas | no invented ABNF | OPEN |
+| Formal grammar | structured protocol examples + ACTION/RESOURCE/CONDITION | compact skill/JSON defines permission pattern, but not a complete transport grammar | OPEN |
 | Session/state | context concepts | largely stateless | correlation, no session requirement | ALIGN |
 | Provenance | source/trust/audit | evidence provenance | ADL provenance | ALIGN |
 | Manifest/runtime distinction | manifest declaration | manifest drives checks | runtime decision authoritative | RESOLVED |
+
+## Compact-source reconciliation
+
+The Library compact source confirms identity, manifest, capability/permission separation, `ACTION + RESOURCE + CONDITION`, A0-A4 autonomy, APL-A0-A3 audit levels, APL-T0-T4 trust levels, trust/security inputs, communication envelope fields, canonical error vocabulary, and APL/MCP/API separation. ABOS aviation objects and ABOS-specific deny defaults remain reference-implementation material rather than AGL Core.
 
 ## Reconciliation rules
 
