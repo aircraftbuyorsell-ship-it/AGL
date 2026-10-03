@@ -33,6 +33,9 @@ ADL → APL → EXECUTION → AEL
 - Example execution graph
 - Schema validation CI
 - Forward/backward reconstruction test
+- Runtime observability baseline
+- Processing measurement unit baseline
+- Execution-level measurement references
 
 ### Current validation result
 
@@ -84,21 +87,31 @@ Formalize:
 - authorization/execution linkage;
 - evidence linkage;
 - missing-data semantics;
-- external provenance/telemetry references.
+- external provenance/telemetry references;
+- measurement references and processing-volume semantics;
+- explicit missing-data semantics (missing is not zero).
 
-### AGL-05 — MCP governance mapping
+### AGL-05 — Runtime measurement and economics
+
+Formalize the generic measurement path:
+
+`USE CASE → EXECUTION → PROCESSING VOLUME → MEASUREMENT → NORMALIZED UNIT → AGGREGATE → ECONOMIC METRIC`
+
+The provider may use processing volume, execution complexity and evidence-related governance cost in its own risk/economics model. AGL records the evidence basis; it does not determine legal liability, insurance decisions or commercial pricing.
+
+### AGL-06 — MCP governance mapping
 
 Document the exact mapping:
 
 `MCP request → APL decision → tool invocation → AEL evidence`
 
-### AGL-06 — A2A governance mapping
+### AGL-07 — A2A governance mapping
 
 Document the exact mapping:
 
 `A2A request → identity/delegation/policy → task execution → AEL evidence`
 
-### AGL-07 — Security & Trust
+### AGL-08 — Security & Trust
 
 Map established mechanisms for:
 
@@ -110,7 +123,7 @@ Map established mechanisms for:
 - integrity;
 - trust state.
 
-### AGL-08 — SER
+### AGL-09 — SER
 
 Define the **Service Execution Record (SER)** as the normalized record for one governed service execution.
 
@@ -118,13 +131,13 @@ Conceptual sections:
 
 `service, authority, mission, actors, execution, graph, authorization, inputs, environment, interventions, outputs, incidents, evidence, provenance`
 
-### AGL-09 — Reference implementation
+### AGL-10 — Reference implementation
 
 ABOS remains the first reference implementation.
 
 The reference implementation MUST demonstrate actual execution evidence before claiming conformance.
 
-### AGL-10 — Non-ABOS validation
+### AGL-11 — Non-ABOS validation
 
 Test the generic graph against at least one non-ABOS implementation.
 
