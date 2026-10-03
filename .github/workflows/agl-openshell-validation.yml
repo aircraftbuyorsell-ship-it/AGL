@@ -1,0 +1,18 @@
+name: AGL OpenShell Adapter Validation
+
+on:
+  push:
+    paths:
+      - "adapters/openshell/**"
+      - ".github/workflows/agl-openshell-validation.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run NVIDIA OpenShell adapter test
+        run: node adapters/openshell/test/openshell-to-agl.test.mjs
