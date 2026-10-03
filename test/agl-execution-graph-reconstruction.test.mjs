@@ -44,7 +44,8 @@ const expansionRelations = new Set([
   "invokes",
   "coordinates",
   "parent_of",
-  "child_of"
+  "child_of",
+  "executed_by"
 ]);
 
 function reconstructExecution(startNodeId) {
