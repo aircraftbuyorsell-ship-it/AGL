@@ -15,6 +15,7 @@ on:
       - "adapters/a2a/**"
       - "adapters/spiffe/**"
       - "adapters/slsa-in-toto/**"
+      - "adapters/odrl/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -98,3 +99,5 @@ jobs:
         run: node adapters/spiffe/test/spiffe-to-agl.test.mjs
       - name: Run SLSA/in-toto adapter test
         run: node adapters/slsa-in-toto/test/slsa-in-toto-to-agl.test.mjs
+      - name: Run ODRL adapter test
+        run: node adapters/odrl/test/odrl-to-agl.test.mjs
