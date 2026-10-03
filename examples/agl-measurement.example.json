@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Illustrative measurement fixture; not a production ABOS execution record.",
+  "measurement_id": "measurement-execution-001",
+  "use_case": "aircraft-purchase-verification",
+  "measurement_type": "processing_volume",
+  "quantity": 106,
+  "unit": "AGL Processing Unit (PU)",
+  "measurement_state": "measured",
+  "scope": {
+    "period_start": "2026-10-03T05:01:00Z",
+    "period_end": "2026-10-03T05:01:08Z",
+    "execution_refs": ["exec-abos-example-001"],
+    "service_id": "service-aircraft-verification",
+    "agent_id": "agent-abos-verification"
+  },
+  "processing": {
+    "input_tokens": 85000,
+    "output_tokens": 21000,
+    "total_processed_tokens": 106000,
+    "tokenization_method": "provider-tokenizer",
+    "tokenization_version": "example-v1",
+    "normalized_unit": "AGL Processing Unit (PU)",
+    "normalization_factor": 1000,
+    "normalized_quantity": 106
+  },
+  "evidence_refs": ["evidence-execution-001"],
+  "calculation_method": "total_processed_tokens / normalization_factor",
+  "calculation_version": "agl-measurement-v1",
+  "generated_at": "2026-10-03T05:01:08Z",
+  "integrity": "unverified"
+}
