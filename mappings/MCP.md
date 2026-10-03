@@ -1,20 +1,59 @@
-# AGL ↔ MCP
+# AGL — MCP Governance Mapping
 
-MCP provides a protocol for connecting AI applications to tools and data sources.
+## v0.1.0
 
-AGL does not replace MCP.
+MCP connects AI applications to tools and data sources. AGL does not replace MCP; it governs consequential MCP operations.
 
-AGL adds governance around MCP operations:
+### Core Mapping
 
-| MCP concern | AGL concern |
+| MCP concern | AGL governance concern |
 |---|---|
+| Server/tool identity | APL actor and capability identity |
 | Tool discovery | Capability registration |
-| Tool invocation | Authorization decision |
-| Tool input | Policy/context evaluation |
-| Tool result | Evidence/provenance |
-| Client/server identity | Actor/delegation chain |
-| Execution | Trace and audit |
+| Tool invocation | Permission and policy evaluation |
+| Tool input | Policy context and target scope |
+| Tool result | ADL output/evidence reference |
+| Errors | ADL execution failure/block record |
+| Session/correlation | ADL correlation chain |
 
-The key boundary is:
+### Governed Flow
 
-**MCP defines how a tool can be invoked. AGL defines whether, under which authority, and with which evidence that invocation is permitted.**
+`MCP request → authenticate actor → resolve capability → evaluate APL → MCP invocation → result → ADL evidence`
+
+A consequential MCP invocation MUST NOT execute before the applicable APL decision has been evaluated.
+
+### Authorization
+
+APL evaluates actor identity, requested capability, permission, target/resource, delegation chain, policy, security/trust context, human approval requirements, and execution context.
+
+Possible outcomes are `ALLOW`, `DENY`, `REQUIRE_HUMAN_APPROVAL`, and `ESCALATE`.
+
+### Tool Discovery Is Not Authorization
+
+Discovering an MCP tool establishes that a capability is available. It does not establish that a particular actor is authorized to invoke it.
+
+### Evidence
+
+After invocation, ADL SHOULD record actor, capability/tool, authorization decision, policy version, delegation context, request/result references, execution status, provenance, and correlation identifier.
+
+### Blocked Execution
+
+For `DENY`, the MCP tool MUST NOT be invoked.
+
+For `REQUIRE_HUMAN_APPROVAL`, autonomous invocation MUST remain blocked until the required approval is recorded.
+
+For `ESCALATE`, normal autonomous execution MUST remain blocked until the escalation path resolves the action.
+
+### Security Boundary
+
+AGL MAY be implemented as a gateway, proxy, middleware, sidecar, MCP host integration, or runtime policy enforcement point.
+
+The location is implementation-specific. The governance requirement is that authorization precedes consequential execution.
+
+### Non-Goals
+
+This mapping does not redefine MCP protocol semantics, tool schemas, transport, discovery mechanisms, or server implementation details.
+
+### Status
+
+MCP Governance Mapping v0.1.0 is an early open-source mapping between AGL and MCP.
