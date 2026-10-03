@@ -12,6 +12,7 @@ on:
       - "adapters/openlineage/**"
       - "adapters/prov/**"
       - "adapters/mcp/**"
+      - "adapters/a2a/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -89,3 +90,5 @@ jobs:
         run: node adapters/prov/test/prov-to-agl.test.mjs
       - name: Run MCP adapter test
         run: node adapters/mcp/test/mcp-to-agl.test.mjs
+      - name: Run A2A adapter test
+        run: node adapters/a2a/test/a2a-to-agl.test.mjs
