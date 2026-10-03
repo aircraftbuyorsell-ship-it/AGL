@@ -6,6 +6,8 @@ on:
       - "schemas/agl-execution-graph.schema.json"
       - "examples/agl-execution-graph.example.json"
       - "test/agl-execution-graph-reconstruction.test.mjs"
+      - "schemas/agl-measurement.schema.json"
+      - "examples/agl-measurement.example.json"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -42,6 +44,30 @@ jobs:
           console.log("nodes:", instance.nodes.length);
           console.log("edges:", instance.edges.length);
           console.log("evidence:", instance.evidence.length);
+          NODE
+      - name: Validate measurement schema
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const Ajv2020 = require("ajv/dist/2020");
+          const addFormats = require("ajv-formats");
+
+          const schema = JSON.parse(fs.readFileSync("schemas/agl-measurement.schema.json", "utf8"));
+          const instance = JSON.parse(fs.readFileSync("examples/agl-measurement.example.json", "utf8"));
+
+          const ajv = new Ajv2020({ allErrors: true, strict: true });
+          addFormats(ajv);
+
+          const validate = ajv.compile(schema);
+          if (!validate(instance)) {
+            console.error(JSON.stringify(validate.errors, null, 2));
+            process.exit(1);
+          }
+
+          console.log("AGL Measurement JSON: VALID");
+          console.log("measurement_id:", instance.measurement_id);
+          console.log("processed_tokens:", instance.processing?.total_processed_tokens);
+          console.log("normalized_quantity:", instance.processing?.normalized_quantity);
           NODE
       - name: Run reconstruction test
         run: node test/agl-execution-graph-reconstruction.test.mjs
