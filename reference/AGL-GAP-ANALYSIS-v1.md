@@ -33,7 +33,7 @@ AGL should complement rather than replace existing standards.
 
 ### AGL governance layers
 
-- **ADL — Agent Definition Language** — defines the agent
+- **ADL — Agent Definition Language** — describes the agent and declared boundaries; AGL should map to established ADL specifications rather than claim to replace them
 - **APL — Agent Policy Layer** — determines what the agent may do
 - **AEL — Agent Evidence Layer** — proves what happened
 - **Security & Trust** — identity, credentials, trust and integrity
