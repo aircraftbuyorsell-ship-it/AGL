@@ -20,6 +20,7 @@ on:
       - "adapters/iso-42001/**"
       - "adapters/eu-ai-act/**"
       - "adapters/gaia-x/**"
+      - "adapters/openshell/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -113,3 +114,5 @@ jobs:
         run: node adapters/eu-ai-act/test/eu-ai-act-to-agl.test.mjs
       - name: Run Gaia-X adapter test
         run: node adapters/gaia-x/test/gaia-x-to-agl.test.mjs
+      - name: Run OpenShell adapter test
+        run: node adapters/openshell/test/openshell-to-agl.test.mjs
