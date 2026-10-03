@@ -1,0 +1,217 @@
+{
+  "agl_version": "0.1.0",
+  "execution_id": "exec-abos-example-001",
+  "service": {
+    "service_id": "service-aircraft-verification",
+    "name": "Aircraft Verification",
+    "version": "1.0.0",
+    "provider": "org-abos",
+    "contract_ref": "contract-demo-001",
+    "sla_ref": "sla-demo-001"
+  },
+  "authority": {
+    "authority_id": "authority-demo-001",
+    "type": "contract",
+    "reference": "contract-demo-001",
+    "valid_from": "2026-10-03T05:00:00Z",
+    "valid_until": "2026-10-04T05:00:00Z"
+  },
+  "mission": {
+    "mission_id": "mission-aircraft-check-001",
+    "objective": "Verify aircraft listing data before a buyer decision.",
+    "use_case": "aircraft-purchase-verification",
+    "requested_by": "actor-buyer-001"
+  },
+  "execution": {
+    "started_at": "2026-10-03T05:01:00Z",
+    "ended_at": "2026-10-03T05:01:08Z",
+    "status": "completed",
+    "initiator": "actor-buyer-001",
+    "root_actor": "agent-abos-verification",
+    "root_policy": "policy-aircraft-verification-v1",
+    "authorization_decision": "authz-demo-001",
+    "graph_root": "node-execution-001"
+  },
+  "nodes": [
+    {
+      "node_id": "node-execution-001",
+      "node_type": "execution",
+      "name": "Aircraft verification execution"
+    },
+    {
+      "node_id": "actor-buyer-001",
+      "node_type": "actor",
+      "name": "Buyer"
+    },
+    {
+      "node_id": "agent-abos-verification",
+      "node_type": "agent",
+      "name": "ABOS Verification Agent",
+      "version": "1.0.0"
+    },
+    {
+      "node_id": "workflow-registry-check",
+      "node_type": "workflow",
+      "name": "Registry verification workflow",
+      "version": "1.0.0"
+    },
+    {
+      "node_id": "task-registry-lookup",
+      "node_type": "task",
+      "name": "Registry lookup"
+    },
+    {
+      "node_id": "skill-aircraft-lookup",
+      "node_type": "skill",
+      "name": "Aircraft registry lookup"
+    },
+    {
+      "node_id": "tool-faa-registry",
+      "node_type": "tool",
+      "name": "FAA registry lookup"
+    },
+    {
+      "node_id": "model-verification-llm",
+      "node_type": "model",
+      "name": "Verification LLM"
+    },
+    {
+      "node_id": "code-verification-adapter",
+      "node_type": "code_artifact",
+      "name": "ABOS verification adapter",
+      "version": "1.0.0"
+    },
+    {
+      "node_id": "data-aircraft-listing",
+      "node_type": "data",
+      "name": "Aircraft listing input"
+    },
+    {
+      "node_id": "environment-abos-production",
+      "node_type": "environment",
+      "name": "ABOS production environment"
+    },
+    {
+      "node_id": "policy-aircraft-verification-v1",
+      "node_type": "policy",
+      "name": "Aircraft verification policy",
+      "version": "1.0.0"
+    },
+    {
+      "node_id": "authz-demo-001",
+      "node_type": "authorization_decision",
+      "name": "Verification authorization",
+      "attributes": {
+        "decision": "allow"
+      }
+    },
+    {
+      "node_id": "output-verification-result",
+      "node_type": "output_effect",
+      "name": "Aircraft verification result"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "edge-001",
+      "source": "actor-buyer-001",
+      "relation": "initiates",
+      "target": "node-execution-001"
+    },
+    {
+      "edge_id": "edge-002",
+      "source": "agent-abos-verification",
+      "relation": "executed_by",
+      "target": "node-execution-001"
+    },
+    {
+      "edge_id": "edge-003",
+      "source": "node-execution-001",
+      "relation": "contains",
+      "target": "workflow-registry-check"
+    },
+    {
+      "edge_id": "edge-004",
+      "source": "workflow-registry-check",
+      "relation": "contains",
+      "target": "task-registry-lookup"
+    },
+    {
+      "edge_id": "edge-005",
+      "source": "task-registry-lookup",
+      "relation": "uses",
+      "target": "skill-aircraft-lookup"
+    },
+    {
+      "edge_id": "edge-006",
+      "source": "skill-aircraft-lookup",
+      "relation": "invokes",
+      "target": "tool-faa-registry"
+    },
+    {
+      "edge_id": "edge-007",
+      "source": "agent-abos-verification",
+      "relation": "uses",
+      "target": "model-verification-llm"
+    },
+    {
+      "edge_id": "edge-008",
+      "source": "agent-abos-verification",
+      "relation": "uses",
+      "target": "code-verification-adapter"
+    },
+    {
+      "edge_id": "edge-009",
+      "source": "node-execution-001",
+      "relation": "consumes",
+      "target": "data-aircraft-listing"
+    },
+    {
+      "edge_id": "edge-010",
+      "source": "node-execution-001",
+      "relation": "runs_on",
+      "target": "environment-abos-production"
+    },
+    {
+      "edge_id": "edge-011",
+      "source": "node-execution-001",
+      "relation": "authorized_by",
+      "target": "authz-demo-001"
+    },
+    {
+      "edge_id": "edge-012",
+      "source": "authz-demo-001",
+      "relation": "constrained_by",
+      "target": "policy-aircraft-verification-v1"
+    },
+    {
+      "edge_id": "edge-013",
+      "source": "node-execution-001",
+      "relation": "produces",
+      "target": "output-verification-result"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence-execution-001",
+      "producer": "agent-abos-verification",
+      "created_at": "2026-10-03T05:01:08Z",
+      "subject": "node-execution-001",
+      "type": "execution_record",
+      "source": "ABOS Verification Agent",
+      "content_digest": "sha256:example-execution-digest",
+      "schema_ref": "agl-execution-graph-0.1.0",
+      "integrity_status": "unverified"
+    },
+    {
+      "evidence_id": "evidence-registry-001",
+      "producer": "tool-faa-registry",
+      "created_at": "2026-10-03T05:01:04Z",
+      "subject": "task-registry-lookup",
+      "type": "registry_response",
+      "source": "FAA registry adapter",
+      "schema_ref": "agl-execution-graph-0.1.0",
+      "integrity_status": "unverified"
+    }
+  ]
+}
