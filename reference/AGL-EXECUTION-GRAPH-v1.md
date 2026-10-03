@@ -115,7 +115,7 @@ An LLM/VLM is a model node unless it is explicitly represented as an autonomous 
 
 Typical relation:
 
-`Agent --uses_model--> Model`
+`Agent --uses--> Model`
 
 ### Tool is not automatically a Skill
 
@@ -157,7 +157,7 @@ Minimum execution envelope:
 - `graph_root`
 - `evidence_refs`
 
-The execution graph is then a set of nodes and typed edges associated with `execution_id`.
+The execution graph is then a set of nodes and typed edges associated with `execution_id`. Relation direction is normative: the source node is the subject of the relation and the target node is the object.
 
 ## 7. Governance sequence
 
