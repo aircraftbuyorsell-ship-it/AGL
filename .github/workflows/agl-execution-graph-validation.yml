@@ -22,13 +22,13 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require("fs");
-          const Ajv = require("ajv");
+          const Ajv2020 = require("ajv/dist/2020");
           const addFormats = require("ajv-formats");
 
           const schema = JSON.parse(fs.readFileSync("schemas/agl-execution-graph.schema.json", "utf8"));
           const instance = JSON.parse(fs.readFileSync("examples/agl-execution-graph.example.json", "utf8"));
 
-          const ajv = new Ajv({ allErrors: true, strict: true });
+          const ajv = new Ajv2020({ allErrors: true, strict: true });
           addFormats(ajv);
 
           const validate = ajv.compile(schema);
