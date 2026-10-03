@@ -1,181 +1,160 @@
-# AGL Roadmap — Document-to-Architecture Mapping
+# AGL Roadmap
 
-AGL is the implementation-neutral governance architecture above MCP and A2A.
+AGL is the implementation-neutral governance and evidence architecture above MCP and A2A.
 
-> MCP connects agents to tools. A2A connects agents to agents. APL governs what they are allowed to do. ADL proves what happened.
+## 1. Canonical architecture
 
-## 1. Source documents
-
-| Source | Relevant material | AGL destination | Status |
-|---|---|---|---|
-| RFC-001 APL Core v0.1 | identity, skills, permissions, communication, audit, trust, gateway, registry, certificate service, MCP | APL + ADL + MCP mapping | Extracted conceptually |
-| ABOS Platform Specification v1.0 | identity, agent framework, capabilities, permissions, security, provenance, audit, conformance | APL + ADL + conformance | Extracted conceptually |
-| ABOS Master Index | source-of-truth hierarchy, RFC lifecycle, terminology, implementation separation | AGL governance/document model | Extracted conceptually |
-| RFC-003 AIGS material | aircraft graph, ownership, maintenance, market events, agents | ABOS reference implementation | Keep outside AGL core |
-
-## 2. What already exists in AGL
-
-### APL
-The current APL layer covers:
-- identity
-- capabilities
-- authorization
-- delegation
-- policy evaluation
-- workflow constraints
-- human approval
-- escalation
-
-Decision states:
-- `ALLOW`
-- `DENY`
-- `REQUIRE_HUMAN_APPROVAL`
-- `ESCALATE`
-
-### ADL
-The current ADL layer covers:
-- actor/delegation chain
-- execution trace
-- provenance
-- evidence references
-- decision records
-- verification
-- replay
-- audit
-
-### Protocol mappings
-- MCP → capability registration, authorization before invocation, result/evidence recording
-- A2A → agent identity, capability scope, delegation, authorization, policy, approval, escalation and audit
-
-## 3. Document-derived work still to formalize
-
-### AGL-01 — APL Core Specification
-Extract the strongest reusable parts of RFC-001 into an implementation-neutral APL specification:
-- Agent Identity
-- Capability/Skill model
-- Permission model
-- Delegation
-- Policy evaluation
-- Gateway/enforcement boundary
-- Registry interface
-- certificate/trust interface
-- versioning
-
-**Do not copy ABOS aircraft/business semantics into the core.**
-
-### AGL-02 — ADL Evidence Specification
-Formalize the audit concepts already present across RFC-001 and the Platform Specification:
-- actor chain
-- execution event
-- policy decision
-- tool/agent invocation
-- evidence reference
-- provenance
-- human approval
-- verification
-- replay metadata
-
-### AGL-03 — Security & Trust
-The RFC-001 roadmap explicitly identifies security/trust as the next major APL milestone:
-- cryptographic agent identity
-- certificates
-- manifest signatures
-- revocation
-- trust chain
-- zero-trust enforcement
-- key rotation
-- security events
-
-AGL should express these as generic governance primitives rather than ABOS-specific infrastructure.
-
-### AGL-04 — Conformance
-The Platform Specification defines conformance testing across APL, MCP, SDK, events, security and AI agents.
-
-AGL should define a small conformance model:
-- policy decision conformance
-- delegation conformance
-- audit/evidence conformance
-- MCP enforcement conformance
-- A2A delegation conformance
-
-### AGL-05 — Developer Surface
-RFC-001 contains an SDK/CLI concept:
-- create agent
-- validate
-- publish
-- certify
-- manifest generation
-- permission/audit configuration
-
-For AGL this becomes an implementation/reference tooling track, not part of the protocol itself.
-
-### AGL-06 — ABOS Reference Implementation
-ABOS remains the first domain-specific implementation:
-- aviation agents
-- aircraft intelligence
-- ATI
-- aircraft identity/passport
-- AIGS
-- ABOS MCP/API
-- production gateway
-
-These belong under `examples/` or a dedicated reference implementation area, not inside the generic AGL core.
-
-## 4. Dependency order
-
-```text
-APL Core
-   |
-   +--> Security & Trust
-   |
-   +--> ADL Evidence
-   |
-   +--> MCP Governance Mapping
-   |
-   +--> A2A Governance Mapping
-   |
-   +--> Conformance Tests
-   |
-   +--> Reference SDK / CLI
-   |
-   +--> ABOS Reference Implementation
+```
+ADL → APL → EXECUTION → AEL
 ```
 
-## 5. What is deliberately NOT part of AGL core
+- **ADL — Agent Definition Language:** describes the agent and declared boundaries.
+- **APL — Agent Policy Layer:** evaluates authority and policy before governed execution.
+- **AEL — Agent Evidence Layer:** records observable execution and supporting evidence.
+- **Security & Trust:** supplies identity, credentials, trust and integrity mechanisms.
+- **MCP:** agent ↔ tool interoperability.
+- **A2A:** agent ↔ agent interoperability.
+- **Execution Graph:** connects these mechanisms into a reconstructable service execution.
 
-The ABOS documents also contain substantial platform-specific material:
+## 2. Current state
+
+### Completed foundation
+
+- APL Core Specification v0.1.0
+- APL grammar/schema baseline
+- AEL Evidence Specification v0.1.0
+- AEL evidence schema
+- Security & Trust baseline
+- AGL Conformance Model v0.1.0
+- AGL Gap Analysis v1
+- AGL Gap Matrix v1
+- AGL Execution Graph v1 draft
+- AGL Execution Graph JSON Schema
+- Example execution graph
+- Schema validation CI
+- Forward/backward reconstruction test
+
+### Current validation result
+
+The example execution graph and reconstruction path are passing CI.
+
+This validates the graph mechanics only. It does **not** yet establish production conformance of ABOS.
+
+## 3. Next work
+
+### AGL-01 — Terminology and document baseline
+
+- keep ADL, APL and AEL strictly separate;
+- remove legacy ADL-as-evidence terminology;
+- make README, Architecture, Roadmap and Conformance mutually consistent;
+- identify external standards rather than claiming ownership of established terms.
+
+### AGL-02 — Real ABOS execution adapter
+
+Transform an actual governed ABOS execution into an AGL Execution Graph.
+
+Required evidence:
+
+`ABOS governed execution → APL decision → execution → AEL evidence → AGL graph`
+
+The adapter MUST preserve real identifiers and MUST NOT fabricate missing evidence.
+
+### AGL-03 — CORE conformance
+
+Execute the AGL CORE negative and positive tests against the ABOS governance adapters.
+
+Minimum cases:
+
+- allowed action executes;
+- unauthorized capability is blocked;
+- DENY prevents execution;
+- approval requirement blocks autonomous execution;
+- escalation blocks normal execution;
+- authorization is linked to execution evidence;
+- failed/blocked actions leave evidence;
+- replay reconstructs observable execution.
+
+### AGL-04 — Execution Graph conformance
+
+Formalize:
+
+- graph reference integrity;
+- forward traversal;
+- backward reconstruction;
+- authorization/execution linkage;
+- evidence linkage;
+- missing-data semantics;
+- external provenance/telemetry references.
+
+### AGL-05 — MCP governance mapping
+
+Document the exact mapping:
+
+`MCP request → APL decision → tool invocation → AEL evidence`
+
+### AGL-06 — A2A governance mapping
+
+Document the exact mapping:
+
+`A2A request → identity/delegation/policy → task execution → AEL evidence`
+
+### AGL-07 — Security & Trust
+
+Map established mechanisms for:
+
+- workload identity;
+- credentials;
+- certificates;
+- signatures;
+- revocation;
+- integrity;
+- trust state.
+
+### AGL-08 — SER
+
+Define the **Service Execution Record (SER)** as the normalized record for one governed service execution.
+
+Conceptual sections:
+
+`service, authority, mission, actors, execution, graph, authorization, inputs, environment, interventions, outputs, incidents, evidence, provenance`
+
+### AGL-09 — Reference implementation
+
+ABOS remains the first reference implementation.
+
+The reference implementation MUST demonstrate actual execution evidence before claiming conformance.
+
+### AGL-10 — Non-ABOS validation
+
+Test the generic graph against at least one non-ABOS implementation.
+
+This is important for demonstrating that AGL is not simply an ABOS-specific architecture renamed as a generic standard.
+
+## 4. GitHub Project mapping
+
+Recommended flow:
+
+`BACKLOG → FOUNDATION → SPECIFICATION → VALIDATION → REFERENCE IMPLEMENTATION → INTEGRATIONS → DONE`
+
+## 5. Source-of-truth rule
+
+AGL public specifications are authoritative for generic AGL concepts.
+
+ABOS documents are historical/design source material and the first reference implementation.
+
+External standards remain authoritative for their own semantics.
+
+When AGL maps an external standard, the mapping belongs to AGL; the underlying standard is not redefined by AGL.
+
+## 6. What is not AGL core
+
+The following remain outside generic AGL:
+
 - aircraft identity
 - ATI
 - valuation
-- marketplace
+- aviation marketplace
 - aviation intelligence graph
-- ABOS business services
-- aircraft data models
-- ABOS-specific API endpoints
-
-These remain reference-implementation material.
-
-## 6. Roadmap board mapping
-
-Recommended GitHub Project flow:
-
-`BACKLOG → FOUNDATION → SPECIFICATION → REFERENCE IMPLEMENTATION → INTEGRATIONS → ABOS REFERENCE → DONE`
-
-Initial work items:
-1. AGL Foundation / terminology
-2. APL Core Specification
-3. ADL Evidence Specification
-4. Security & Trust Framework
-5. MCP Governance Mapping
-6. A2A Governance Mapping
-7. Conformance Test Model
-8. Reference SDK / CLI
-9. ABOS Reference Implementation
-
-## 7. Source-of-truth rule
-
-AGL public specifications should become the canonical implementation-neutral layer.
-
-ABOS documents remain the historical/design source for the ideas and the reference implementation.
-
-When an ABOS concept is generalized for AGL, the AGL specification becomes authoritative for the generic concept; ABOS-specific behavior remains in ABOS.
+- ABOS-specific data models
+- ABOS-specific endpoints
+- ABOS commercial logic
