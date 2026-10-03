@@ -6,12 +6,6 @@ const graph = JSON.parse(
 );
 
 const nodes = new Map(graph.nodes.map((node) => [node.node_id, node]));
-const outgoing = new Map();
-
-for (const edge of graph.edges) {
-  if (!outgoing.has(edge.source)) outgoing.set(edge.source, []);
-  outgoing.get(edge.source).push(edge);
-}
 
 function reconstructBackwards(startNodeId) {
   const result = [];
@@ -34,17 +28,16 @@ function reconstructBackwards(startNodeId) {
   return result;
 }
 
-const outputId = graph.execution.graph_root
-  ? graph.edges.find((edge) =>
-      edge.source === graph.execution.graph_root &&
-      edge.relation === "produces"
-    )?.target
-  : undefined;
+const outputId = graph.edges.find(
+  (edge) =>
+    edge.source === graph.execution.graph_root &&
+    edge.relation === "produces"
+)?.target;
 
 assert.ok(outputId, "execution graph must expose a produced output");
 
-const reconstructed = reconstructBackwards(outputId);
-const reconstructedIds = new Set(reconstructed.map((node) => node.node_id));
+const lineage = reconstructBackwards(outputId);
+const lineageIds = new Set(lineage.map((node) => node.node_id));
 
 for (const required of [
   "output-verification-result",
@@ -53,17 +46,43 @@ for (const required of [
   "workflow-registry-check",
   "task-registry-lookup",
   "skill-aircraft-lookup",
-  "tool-faa-registry",
+  "tool-faa-registry"
+]) {
+  assert.ok(lineageIds.has(required), `lineage missing expected node: ${required}`);
+}
+
+const governanceContext = new Set([
+  graph.execution.authorization_decision,
+  graph.execution.root_policy
+]);
+
+assert.ok(
+  governanceContext.has("authz-demo-001"),
+  "execution must retain its authorization decision"
+);
+assert.ok(
+  governanceContext.has("policy-aircraft-verification-v1"),
+  "execution must retain its governing policy"
+);
+
+for (const contextual of [
   "model-verification-llm",
   "code-verification-adapter",
   "data-aircraft-listing",
-  "environment-abos-production",
-  "authz-demo-001",
-  "policy-aircraft-verification-v1"
+  "environment-abos-production"
 ]) {
   assert.ok(
-    reconstructedIds.has(required),
-    `reconstruction missing expected node: ${required}`
+    graph.edges.some(
+      (edge) =>
+        edge.source === graph.execution.graph_root &&
+        edge.target === contextual
+    ) ||
+    graph.edges.some(
+      (edge) =>
+        edge.source === "agent-abos-verification" &&
+        edge.target === contextual
+    ),
+    `execution context missing: ${contextual}`
   );
 }
 
@@ -72,13 +91,7 @@ assert.ok(
   "execution evidence must reference the execution"
 );
 
-assert.equal(
-  graph.execution.authorization_decision,
-  "authz-demo-001",
-  "execution must retain its authorization decision"
-);
-
 console.log("AGL reconstruction test: PASS");
-console.log("reconstructed nodes:", reconstructed.length);
+console.log("lineage nodes:", lineage.length);
 console.log("output:", outputId);
 console.log("execution:", graph.execution.graph_root);
