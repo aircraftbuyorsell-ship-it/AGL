@@ -13,7 +13,7 @@ Trust is an input to authorization. Trust is not authorization.
 3. Validate delegation and scope before execution.
 4. Reject expired or revoked authority.
 5. Preserve the identity and correlation chain across execution.
-6. Record security-relevant decisions and events in ADL.
+6. Record security-relevant decisions and events in AEL.
 7. Minimize privileges and evidence exposure.
 8. Do not treat an agent's self-declared capability or identity as proof of authority.
 
@@ -75,16 +75,16 @@ AGL SHOULD follow a zero-trust assumption: identity is continuously validated; a
 Previous successful execution MUST NOT be treated as permanent authorization.
 
 ### 14. Security Events
-Security-relevant events SHOULD be represented in ADL.
+Security-relevant events SHOULD be represented in AEL.
 Examples include authentication failure, invalid credential, expired credential, revoked credential, invalid delegation, policy denial, approval bypass attempt, unauthorized execution attempt, evidence integrity failure, key rotation, key compromise, and trust-state change.
 
 ### 15. Minimum Security Conformance
 An implementation claiming AGL security conformance SHOULD demonstrate: actor authentication; stable actor identification; credential validation where credentials are used; explicit authorization before consequential execution; bounded delegation; rejection of expired or revoked authority; evidence of security-relevant decisions; controlled access to evidence; integrity protection or documented integrity boundaries; credential/key lifecycle handling where cryptographic identity is used.
 
-### 16. Relationship to APL and ADL
+### 16. Relationship to APL and AEL
 APL = authority and policy
 Security & Trust = identity, credential, integrity and trust inputs
-ADL = evidence of decisions and execution
+AEL = evidence of decisions and execution
 The three layers form one governance loop:
 Identity → Trust → APL Decision → Execution → ADL Evidence
 
