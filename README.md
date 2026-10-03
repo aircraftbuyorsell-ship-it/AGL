@@ -92,6 +92,7 @@ AGL should reference and map to these mechanisms rather than recreate them.
 - `schemas/ael-evidence-record.schema.json`
 - `schemas/apl-agent-manifest.schema.json`
 - `examples/agl-execution-graph.example.json`
+- `examples/agl-measurement.example.json`
 - `schemas/agl-measurement.schema.json`
 
 ## Reference implementation
