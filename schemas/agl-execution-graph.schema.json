@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aircraftbuyorsell.com/agl/schemas/agl-execution-graph.schema.json",
+  "title": "AGL Execution Graph",
+  "description": "Machine-validatable governance and evidence graph for reconstructing an autonomous or agentic service execution.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["agl_version", "execution_id", "service", "execution", "nodes", "edges", "evidence"],
+  "properties": {
+    "agl_version": { "type": "string", "const": "0.1.0" },
+    "execution_id": { "$ref": "#/$defs/id" },
+    "service": { "$ref": "#/$defs/service" },
+    "authority": { "$ref": "#/$defs/authority" },
+    "mission": { "$ref": "#/$defs/mission" },
+    "execution": { "$ref": "#/$defs/execution" },
+    "nodes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/node" }
+    },
+    "edges": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/edge" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidence" }
+    },
+    "incidents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/incident" }
+    },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/claim" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "authorized",
+        "running",
+        "completed",
+        "completed_with_deviation",
+        "failed",
+        "aborted",
+        "denied",
+        "escalated"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_id"],
+      "properties": {
+        "service_id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "provider": { "$ref": "#/$defs/id" },
+        "contract_ref": { "$ref": "#/$defs/id" },
+        "sla_ref": { "$ref": "#/$defs/id" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_id"],
+      "properties": {
+        "authority_id": { "$ref": "#/$defs/id" },
+        "type": {
+          "type": "string",
+          "enum": ["contract", "sla", "policy", "delegation", "mandate", "other"]
+        },
+        "reference": { "type": "string" },
+        "valid_from": { "$ref": "#/$defs/timestamp" },
+        "valid_until": { "$ref": "#/$defs/timestamp" }
+      }
+    },
+    "mission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mission_id"],
+      "properties": {
+        "mission_id": { "$ref": "#/$defs/id" },
+        "objective": { "type": "string" },
+        "use_case": { "type": "string" },
+        "requested_by": { "$ref": "#/$defs/id" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["started_at", "status"],
+      "properties": {
+        "started_at": { "$ref": "#/$defs/timestamp" },
+        "ended_at": { "$ref": "#/$defs/timestamp" },
+        "status": { "$ref": "#/$defs/status" },
+        "initiator": { "$ref": "#/$defs/id" },
+        "root_actor": { "$ref": "#/$defs/id" },
+        "root_policy": { "$ref": "#/$defs/id" },
+        "authorization_decision": { "$ref": "#/$defs/id" },
+        "graph_root": { "$ref": "#/$defs/id" },
+        "parent_execution_id": { "$ref": "#/$defs/id" }
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node_id", "node_type"],
+      "properties": {
+        "node_id": { "$ref": "#/$defs/id" },
+        "node_type": {
+          "type": "string",
+          "enum": [
+            "service",
+            "authority",
+            "mission",
+            "execution",
+            "actor",
+            "agent",
+            "orchestrator",
+            "pipeline",
+            "workflow",
+            "task",
+            "skill",
+            "tool",
+            "model",
+            "code_artifact",
+            "data",
+            "environment",
+            "policy",
+            "authorization_decision",
+            "human_intervention",
+            "output_effect",
+            "evidence",
+            "incident",
+            "claim"
+          ]
+        },
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "external_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/external_ref" }
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["edge_id", "source", "relation", "target"],
+      "properties": {
+        "edge_id": { "$ref": "#/$defs/id" },
+        "source": { "$ref": "#/$defs/id" },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "contains",
+            "uses",
+            "invokes",
+            "depends_on",
+            "composes",
+            "coordinates",
+            "parent_of",
+            "child_of",
+            "produces",
+            "consumes",
+            "derived_from",
+            "authorized_by",
+            "constrained_by",
+            "approved_by",
+            "overridden_by",
+            "delegated_by",
+            "executed_by",
+            "runs_on",
+            "controlled_by",
+            "caused",
+            "observed_by",
+            "evidenced_by",
+            "claims_about",
+            "authored_by",
+            "modified_by",
+            "deployed_as"
+          ]
+        },
+        "target": { "$ref": "#/$defs/id" },
+        "observed_at": { "$ref": "#/$defs/timestamp" },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "external_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "ref"],
+      "properties": {
+        "system": { "type": "string" },
+        "ref": { "type": "string" },
+        "relation": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "producer", "created_at", "subject"],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/id" },
+        "producer": { "$ref": "#/$defs/id" },
+        "created_at": { "$ref": "#/$defs/timestamp" },
+        "subject": { "$ref": "#/$defs/id" },
+        "type": { "type": "string" },
+        "source": { "type": "string" },
+        "content_digest": { "type": "string" },
+        "schema_ref": { "type": "string" },
+        "integrity_status": {
+          "type": "string",
+          "enum": ["verified", "unverified", "invalid", "unknown"]
+        },
+        "external_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/external_ref" }
+        }
+      }
+    },
+    "incident": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["incident_id", "status"],
+      "properties": {
+        "incident_id": { "$ref": "#/$defs/id" },
+        "status": {
+          "type": "string",
+          "enum": ["open", "investigating", "resolved", "closed"]
+        },
+        "description": { "type": "string" },
+        "execution_ref": { "$ref": "#/$defs/id" },
+        "cause_candidates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "input_data_defect",
+              "retrieval_error",
+              "model_limitation",
+              "model_error",
+              "tool_failure",
+              "software_defect",
+              "workflow_error",
+              "configuration_error",
+              "policy_error",
+              "unauthorized_modification",
+              "human_action",
+              "environmental_condition",
+              "hardware_degradation",
+              "communication_failure",
+              "unknown"
+            ]
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "statement"],
+      "properties": {
+        "claim_id": { "$ref": "#/$defs/id" },
+        "statement": { "type": "string" },
+        "subject": { "$ref": "#/$defs/id" },
+        "status": {
+          "type": "string",
+          "enum": ["asserted", "supported", "disputed", "unresolved", "rejected"]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    }
+  }
+}
