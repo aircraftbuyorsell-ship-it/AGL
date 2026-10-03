@@ -16,6 +16,7 @@ on:
       - "adapters/spiffe/**"
       - "adapters/slsa-in-toto/**"
       - "adapters/odrl/**"
+      - "adapters/nist-ai-rmf/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -101,3 +102,5 @@ jobs:
         run: node adapters/slsa-in-toto/test/slsa-in-toto-to-agl.test.mjs
       - name: Run ODRL adapter test
         run: node adapters/odrl/test/odrl-to-agl.test.mjs
+      - name: Run NIST AI RMF adapter test
+        run: node adapters/nist-ai-rmf/test/nist-ai-rmf-to-agl.test.mjs
