@@ -56,10 +56,10 @@ A SECURE implementation SHOULD additionally demonstrate:
 An INTEGRATED implementation SHOULD additionally demonstrate governance at a real protocol boundary.
 
 For MCP:
-`Request → APL decision → MCP execution → ADL evidence`
+`Request → APL decision → MCP execution → AEL evidence`
 
 For A2A:
-`Request → identity/delegation/policy evaluation → A2A execution → ADL evidence`
+`Request → identity/delegation/policy evaluation → A2A execution → AEL evidence`
 
 The protocol itself remains responsible for its transport semantics. AGL is responsible for governance and evidence.
 
@@ -123,7 +123,7 @@ A conformance submission SHOULD contain:
 - test environment
 - test cases and results
 - authorization decisions
-- relevant ADL evidence records
+- relevant AEL evidence records
 - protocol traces where applicable
 - security/integrity information
 - known limitations
@@ -133,7 +133,7 @@ Sensitive payloads MAY be replaced with hashes, references, or redacted evidence
 ### 13. Versioning
 Conformance is always evaluated against explicit AGL specification versions.
 
-An implementation claiming `AGL v0.1` conformance MUST identify the exact APL, AEL, and Security & Trust versions tested.
+An implementation claiming `AGL v0.1` conformance MUST identify the exact ADL, APL, AEL, and Security & Trust versions tested.
 
 Breaking specification changes require a new conformance target.
 
@@ -155,7 +155,7 @@ AGL MAY later define a signed conformance statement, certification service, or p
 | Delegation | expired/revoked delegation | blocked |
 | Human oversight | approval required | no autonomous execution before approval |
 | Escalation | escalation required | normal execution blocked |
-| Evidence | completed action | ADL execution evidence |
+| Evidence | completed action | AEL execution evidence |
 | Failure | failed action | ADL failure evidence |
 | Replay | recorded execution | observable history reconstructable |
 | Integrity | modified evidence | detected or prevented according to implementation guarantee |
