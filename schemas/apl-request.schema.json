@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://github.com/aircraftbuyorsell-ship-it/AGL/blob/main/schemas/apl-request.schema.json",
+  "title":"AGL APL Core Governance Request",
+  "type":"object",
+  "additionalProperties":true,
+  "required":["apl_version","request_id","actor","capability","permission","target","context"],
+  "properties":{
+    "apl_version":{"type":"string","minLength":1},
+    "request_id":{"type":"string","minLength":1},
+    "actor":{"type":"object","required":["id","type"],"properties":{"id":{"type":"string","minLength":1},"type":{"type":"string","enum":["agent","human","service","system"]},"name":{"type":"string"},"version":{"type":"string"},"provider":{"type":"string"}},"additionalProperties":true},
+    "capability":{"type":"string","minLength":1},
+    "permission":{"type":"object","required":["action","resource"],"properties":{"action":{"type":"string","pattern":"^[A-Za-z0-9_.:/-]+$"},"resource":{"type":"string","pattern":"^[A-Za-z0-9_.:/-]+$"},"condition":{"type":"string"}},"additionalProperties":true},
+    "target":{"type":"object","required":["resource"],"properties":{"resource":{"type":"string","minLength":1},"id":{"type":"string"},"scope":{"type":"string"}},"additionalProperties":true},
+    "context":{"type":"object"},
+    "delegation":{"type":"object","additionalProperties":true},
+    "approval":{"type":"object","additionalProperties":true},
+    "trust":{"type":"object","additionalProperties":true},
+    "correlation_id":{"type":"string"},
+    "policy_version":{"type":"string"}
+  }
+}
