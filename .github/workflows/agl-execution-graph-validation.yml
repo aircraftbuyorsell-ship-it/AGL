@@ -17,6 +17,7 @@ on:
       - "adapters/slsa-in-toto/**"
       - "adapters/odrl/**"
       - "adapters/nist-ai-rmf/**"
+      - "adapters/iso-42001/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -104,3 +105,5 @@ jobs:
         run: node adapters/odrl/test/odrl-to-agl.test.mjs
       - name: Run NIST AI RMF adapter test
         run: node adapters/nist-ai-rmf/test/nist-ai-rmf-to-agl.test.mjs
+      - name: Run ISO/IEC 42001 adapter test
+        run: node adapters/iso-42001/test/iso-42001-to-agl.test.mjs
