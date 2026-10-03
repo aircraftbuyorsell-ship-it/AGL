@@ -44,6 +44,7 @@ The preferred rule is:
 | ISO/IEC 42001 | AI management system | Governance | standard text is licensed; implementation uses control mapping rather than copied text | control mapping | Map AGL evidence to an organization's AI management controls | MAPPING |
 | EU AI Act | regulation | Governance / Compliance | machine-readable EU legal publications and legal-data infrastructure | regulatory mapping | Map applicable obligations to evidence/control references; no legal interpretation in AGL core | MAPPING |
 | Gaia-X | digital trust / data ecosystem | Security / Policy / Federation | specifications, schemas and ecosystem APIs vary by component | trust/policy mapping | Reference identity, policy, trust and service-composition mechanisms | MAPPING |
+| NVIDIA OpenShell | runtime enforcement / sandbox | Execution / Security & Trust / AEL | CLI, SDK/control-plane APIs and structured runtime/policy records | runtime enforcement mapping | Bind sandbox, effective policy and enforcement observations to execution evidence; keep APL authorization separate | ADAPTER |
 
 ## API-first implementation rule
 
@@ -83,8 +84,6 @@ AGL output:
 Core invariant:
 
 `telemetry → execution → measurement → evidence`
-
-OpenTelemetry already defines propagation mechanisms such as W3C Trace Context and provides APIs/specifications for traces, metrics and logs.
 
 ### 2. OpenLineage → AGL
 
@@ -208,7 +207,31 @@ Core invariant:
 
 `policy → authorization decision → execution`
 
-### 9. Governance / regulatory mappings
+### 9. NVIDIA OpenShell → AGL
+
+Input:
+- sandbox identity
+- effective policy identity/reference
+- runtime enforcement observation
+- allow/deny state
+- runtime integrity state
+- external runtime/policy reference
+
+AGL output:
+- execution node representing the runtime enforcement event
+- environment node for the OpenShell sandbox
+- policy node for the effective policy
+- AEL evidence describing the runtime enforcement observation
+- external reference preserved
+- explicit distinction between runtime enforcement and APL authorization
+
+Core invariant:
+
+`APL authorization → OpenShell enforcement → execution → AEL evidence`
+
+OpenShell's own gateway and supervisor split control-plane state from sandbox-local enforcement. Its policies can constrain filesystem, process and network behavior, while the effective policy is the policy actually enforced by the sandbox. AGL therefore consumes those enforcement observations rather than redefining OpenShell policy semantics. citeturn0search0turn0search10
+
+### 10. Governance / regulatory mappings
 
 NIST AI RMF, ISO/IEC 42001, EU AI Act and Gaia-X should be treated primarily as **control, trust, policy or compliance mapping targets**, not runtime protocols.
 
@@ -250,6 +273,11 @@ Example:
       "system": "slsa",
       "type": "provenance",
       "id": "attestation-789"
+    },
+    {
+      "system": "nvidia-openshell",
+      "type": "enforcement_event",
+      "id": "openshell:event:001"
     }
   ]
 }
@@ -271,6 +299,8 @@ SPIFFE / identity
 APL authorization
   ↓
 MCP / A2A interaction
+  ↓
+OpenShell runtime enforcement
   ↓
 OpenTelemetry runtime telemetry
   ↓
@@ -318,7 +348,10 @@ This keeps ABOS-specific aircraft and valuation semantics outside the generic AG
 11. EU AI Act
 12. Gaia-X
 
-### Phase 4 — ABOS CORE conformance
+### Phase 4 — runtime enforcement
+13. NVIDIA OpenShell sandbox/enforcement mapping
+
+### Phase 5 — ABOS CORE conformance
 
 Execute the adapters against a real ABOS governed execution and prove:
 
