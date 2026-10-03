@@ -17,22 +17,26 @@ export function openShellDecisionToAgl(observation, options = {}) {
   const evidenceId = `evidence-openshell-${observation.decision_id}`;
 
   const nodes = [
-    { id: executionId, type: "execution", label: "OpenShell runtime enforcement decision",
+    { id: executionId, type: "execution", label: "OpenShell runtime enforcement event",
       attributes: { status: decision === "allow" ? "completed" : "denied", sandbox_id: observation.sandbox_id } },
     { id: `sandbox:${observation.sandbox_id}`, type: "environment", label: "OpenShell sandbox",
       attributes: { sandbox_id: observation.sandbox_id } },
     { id: policyId, type: "policy", label: "OpenShell effective policy",
       attributes: { policy_source: observation.policy_source ?? "unknown" } },
-    { id: `authorization:${observation.decision_id}`, type: "authorization_decision", label: `OpenShell ${decision}`,
-      attributes: { decision, decision_id: observation.decision_id } },
     { id: evidenceId, type: "evidence", label: "OpenShell enforcement evidence",
-      attributes: { integrity: observation.integrity_status ?? "unknown", external_ref: observation.external_ref ?? observation.decision_id } }
+      attributes: {
+        integrity: observation.integrity_status ?? "unknown",
+        external_ref: observation.external_ref ?? observation.decision_id,
+        decision,
+        sandbox_id: observation.sandbox_id,
+        policy_id: policyId,
+        semantic_role: "runtime-enforcement-observation"
+      } }
   ];
 
   const edges = [
     { id: `edge-${observation.decision_id}-policy`, source: executionId, target: policyId, relation: "constrained_by" },
     { id: `edge-${observation.decision_id}-sandbox`, source: executionId, target: `sandbox:${observation.sandbox_id}`, relation: "runs_on" },
-    { id: `edge-${observation.decision_id}-authorization`, source: executionId, target: `authorization:${observation.decision_id}`, relation: "authorized_by" },
     { id: `edge-${observation.decision_id}-evidence`, source: executionId, target: evidenceId, relation: "evidenced_by" }
   ];
 
@@ -46,13 +50,19 @@ export function openShellDecisionToAgl(observation, options = {}) {
       producer: `openshell:${observation.sandbox_id}`,
       integrity: observation.integrity_status ?? "unknown",
       external_refs: observation.external_ref ? [observation.external_ref] : [observation.decision_id],
-      attributes: { decision, sandbox_id: observation.sandbox_id, policy_id: policyId }
+      attributes: {
+        decision,
+        sandbox_id: observation.sandbox_id,
+        policy_id: policyId,
+        semantic_role: "runtime-enforcement-observation"
+      }
     }],
     metadata: {
       adapter: "agl-openshell",
-      adapter_version: options.adapter_version ?? "0.1.0",
+      adapter_version: options.adapter_version ?? "0.1.1",
       source: "NVIDIA OpenShell",
-      fabricated_evidence: false
+      fabricated_evidence: false,
+      authorization_note: "OpenShell enforcement evidence does not constitute the AGL APL authorization decision."
     }
   };
 }
