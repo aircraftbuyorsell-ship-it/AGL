@@ -167,9 +167,42 @@ The current ABOS implementation is a reference adapter and is not declared fully
 
 ## 20. Open source-closure items
 
-1. `APL_core_compact_pack.zip` validation;
-2. formal ABNF grammar, if later required;
+1. formal grammar and machine-readable syntax closure;
+2. generic delegation runtime conformance;
 3. direct A2A runtime conformance;
-4. complete generic delegation implementation in the ABOS adapter.
+4. complete correlation enforcement in every adapter.
 
 These do not alter the reconciled semantic core.
+
+
+## 21. Compact Source Alignment
+
+The Library compact source set is now available and has been reconciled into this release candidate:
+- `apl_core_skill.md`
+- `apl_core_compact.pretty.json`
+- `apl_core_compact.min.json`
+- `apl_core_compact.min.json.gz`
+
+The compact source confirms the following original APL concepts:
+- APL identity namespace and manifest structure;
+- capability/permission separation;
+- permission scope expressed as action + resource + condition;
+- autonomy levels A0-A4;
+- audit levels APL-A0 through APL-A3;
+- trust levels APL-T0 through APL-T4;
+- identity verification, manifest signature, certificate, permission check, runtime monitoring and revocation as trust/security inputs;
+- APL communication envelope fields: version, message ID, sender, receiver, intent, context, security and payload;
+- canonical APL error vocabulary;
+- explicit APL/MCP/API layer separation.
+
+ABOS-specific material in the compact source, including aviation namespaces, aircraft objects, ATI Passport, ABOS agent names, transaction-specific deny defaults and ABOS MVP build order, remains outside generic AGL Core.
+
+The compact source therefore closes the previous `compact-pack unavailable` source gap. It does not by itself establish runtime conformance.
+
+## 22. Source-Closure Status
+
+The compact source is now considered part of the AGL-01 source set. The remaining open items are:
+1. whether a formal grammar should be added as a normative machine-readable syntax;
+2. generic delegation runtime conformance;
+3. direct A2A runtime conformance;
+4. complete correlation enforcement in every adapter.
