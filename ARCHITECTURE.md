@@ -133,7 +133,19 @@ Not every execution contains every component.
 
 The graph MUST represent observed relationships and MUST NOT invent missing intermediate components.
 
-## 8. Forward and backward reconstruction
+## 8. Runtime observability and measurement
+
+A governed execution is not complete as an evidence model unless its processing volume and relevant runtime measurements can be reconstructed.
+
+Canonical chain:
+
+`RUNTIME LOGS / METRICS / TRACES → EXECUTION → MEASUREMENT → AGGREGATE → VALUE / COST / PRICE METRIC`
+
+For AI/agentic processing, processed tokens are a primary generic measurement dimension where tokenization is available. A business object is not a processing unit: two executions for the same object may have different processing volumes.
+
+Missing telemetry is represented as unavailable/partial/estimated/invalid/disputed as applicable; it MUST NOT silently become zero. Quantified claims remain linked to execution and evidence references.
+
+## 9. Forward and backward reconstruction
 
 Forward:
 
@@ -145,7 +157,7 @@ Backward:
 
 The goal is reconstruction of observable execution and authority, not reproduction of private model reasoning.
 
-## 9. Protocol boundaries
+## 10. Protocol boundaries
 
 For MCP:
 
@@ -157,12 +169,12 @@ For A2A:
 
 The protocol remains responsible for its transport and interaction semantics.
 
-## 10. Reference implementation
+## 11. Reference implementation
 
 ABOS is the first reference implementation.
 
 ABOS-specific domain logic remains outside the generic AGL core.
 
-## 11. Design principle
+## 12. Design principle
 
 **AGL connects existing mechanisms; it does not attempt to replace them.**
