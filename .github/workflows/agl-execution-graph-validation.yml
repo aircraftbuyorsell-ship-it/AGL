@@ -9,6 +9,7 @@ on:
       - "schemas/agl-measurement.schema.json"
       - "examples/agl-measurement.example.json"
       - "adapters/opentelemetry/**"
+      - "adapters/openlineage/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -80,3 +81,5 @@ jobs:
         run: node test/agl-execution-graph-reconstruction.test.mjs
       - name: Run OpenTelemetry adapter test
         run: node adapters/opentelemetry/test/otel-to-agl.test.mjs
+      - name: Run OpenLineage adapter test
+        run: node adapters/openlineage/test/openlineage-to-agl.test.mjs
