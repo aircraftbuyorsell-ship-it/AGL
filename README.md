@@ -78,6 +78,8 @@ AGL should reference and map to these mechanisms rather than recreate them.
 - [APL Core Specification](APL/SPEC.md)
 - [AEL Evidence Specification](AEL/SPEC.md)
 - [Execution Graph](reference/AGL-EXECUTION-GRAPH-v1.md)
+- [Runtime Observability](reference/AGL-RUNTIME-OBSERVABILITY-v1.md)
+- [Measurement Unit](reference/AGL-MEASUREMENT-UNIT-v1.md)
 - [Gap Analysis](reference/AGL-GAP-ANALYSIS-v1.md)
 - [Gap Matrix](reference/AGL-GAP-MATRIX-v1.md)
 - [Conformance Model](CONFORMANCE.md)
@@ -90,6 +92,7 @@ AGL should reference and map to these mechanisms rather than recreate them.
 - `schemas/ael-evidence-record.schema.json`
 - `schemas/apl-agent-manifest.schema.json`
 - `examples/agl-execution-graph.example.json`
+- `schemas/agl-measurement.schema.json`
 
 ## Reference implementation
 
@@ -101,7 +104,7 @@ ABOS-specific aircraft, aviation, market, verification and valuation semantics r
 
 **Early open-source architecture — v0.1.x**
 
-The execution graph and reconstruction path are validated against the current example graph in CI. The next conformance step is execution against a real ABOS governed runtime.
+The execution graph, reconstruction path, and first-class processing measurement references are validated against the current example graph in CI. The next conformance step is execution against a real ABOS governed runtime.
 
 ## License
 
