@@ -11,7 +11,7 @@ Conformance is evidence-based: an implementation must demonstrate observable gov
 Conformance is divided into four areas:
 
 - APL — authorization and policy behavior
-- ADL — evidence and audit behavior
+- AEL — evidence and audit behavior
 - Security & Trust — identity, credential, delegation, and integrity behavior
 - Protocol integration — governed MCP and A2A execution
 
@@ -20,7 +20,7 @@ An implementation MAY claim conformance to individual profiles without claiming 
 ### 3. Conformance Levels
 AGL v0.1 defines three levels:
 
-- `CORE` — APL + ADL minimum governance behavior
+- `CORE` — APL + AEL minimum governance behavior
 - `SECURE` — CORE plus Security & Trust requirements
 - `INTEGRATED` — SECURE plus demonstrated MCP and/or A2A governance integration
 
@@ -94,14 +94,14 @@ A conformant implementation SHOULD demonstrate:
 The test must verify that the delegatee cannot exceed the delegator's authority.
 
 ### 10. Evidence Test
-Every consequential test execution SHOULD produce an ADL record linking:
+Every consequential test execution SHOULD produce an AEL record linking:
 
 `Actor → Capability → Permission → Delegation → Policy → Decision → Execution`
 
 The test should also verify correlation identifiers, execution status, provenance state, and integrity metadata where supported.
 
 ### 11. Replay Test
-A conformant implementation SHOULD reconstruct the observable execution history from ADL evidence.
+A conformant implementation SHOULD reconstruct the observable execution history from AEL evidence.
 
 Replay must establish:
 
@@ -133,7 +133,7 @@ Sensitive payloads MAY be replaced with hashes, references, or redacted evidence
 ### 13. Versioning
 Conformance is always evaluated against explicit AGL specification versions.
 
-An implementation claiming `AGL v0.1` conformance MUST identify the exact APL, ADL, and Security & Trust versions tested.
+An implementation claiming `AGL v0.1` conformance MUST identify the exact APL, AEL, and Security & Trust versions tested.
 
 Breaking specification changes require a new conformance target.
 
