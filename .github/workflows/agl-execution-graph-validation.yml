@@ -16,6 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Show checked-out revision
+        run: |
+          echo "AGL CI SHA: $GITHUB_SHA"
+          git rev-parse HEAD
+          git status --short
+          node -e 'const fs=require("fs"); const x=JSON.parse(fs.readFileSync("examples/agl-measurement.example.json","utf8")); console.log("measurement fixture integrity type:", typeof x.integrity); console.log("measurement fixture has $schema:", Object.prototype.hasOwnProperty.call(x, "$schema")); console.log("measurement fixture has $comment:", Object.prototype.hasOwnProperty.call(x, "$comment"));'
       - uses: actions/setup-node@v4
         with:
           node-version: 20
