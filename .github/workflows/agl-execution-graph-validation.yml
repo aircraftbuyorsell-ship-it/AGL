@@ -5,6 +5,7 @@ on:
     paths:
       - "schemas/agl-execution-graph.schema.json"
       - "examples/agl-execution-graph.example.json"
+      - "test/agl-execution-graph-reconstruction.test.mjs"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -17,7 +18,7 @@ jobs:
           node-version: 20
       - name: Install validator
         run: npm install --no-save ajv@8 ajv-formats@3
-      - name: Validate execution graph
+      - name: Validate execution graph schema
         run: |
           node <<'NODE'
           const fs = require("fs");
@@ -42,3 +43,5 @@ jobs:
           console.log("edges:", instance.edges.length);
           console.log("evidence:", instance.evidence.length);
           NODE
+      - name: Run reconstruction test
+        run: node test/agl-execution-graph-reconstruction.test.mjs
