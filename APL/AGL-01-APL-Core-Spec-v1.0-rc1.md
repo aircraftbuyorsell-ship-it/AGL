@@ -167,7 +167,7 @@ The current ABOS implementation is a reference adapter and is not declared fully
 
 ## 20. Open source-closure items
 
-1. formal grammar and machine-readable syntax closure;
+1. normative grammar and machine-readable request syntax are now defined in APL/AGL-01-APL-Grammar-v1.0-rc1.md and schemas/apl-request.schema.json;
 2. generic delegation runtime conformance;
 3. direct A2A runtime conformance;
 4. complete correlation enforcement in every adapter.
@@ -202,7 +202,7 @@ The compact source therefore closes the previous `compact-pack unavailable` sour
 ## 22. Source-Closure Status
 
 The compact source is now considered part of the AGL-01 source set. The remaining open items are:
-1. whether a formal grammar should be added as a normative machine-readable syntax;
+1. normative grammar and machine-readable request syntax closure is complete;
 2. generic delegation runtime conformance;
 3. direct A2A runtime conformance;
 4. complete correlation enforcement in every adapter.
