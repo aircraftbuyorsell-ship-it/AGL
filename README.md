@@ -4,14 +4,14 @@
 
 AGL is an open architecture for governing AI agent systems across interoperability, authorization, execution, evidence, and human oversight.
 
-> MCP connects agents to tools. A2A connects agents to agents. APL governs what they are allowed to do. ADL proves what happened.
+> MCP connects agents to tools. A2A connects agents to agents. APL governs what they are allowed to do. AEL proves what happened.
 
 ## Core layers
 
 - **MCP** — agent ↔ tool interoperability
 - **A2A** — agent ↔ agent interoperability
 - **APL** — Agent Policy Layer: identity, capability, authorization, delegation, policy, workflow, approval, escalation
-- **ADL** — Agent Evidence Layer: actor chain, execution trace, provenance, evidence, decision records, replay, audit
+- **AEL** — Agent Evidence Layer: actor chain, execution trace, provenance, evidence, decision records, replay, audit
 
 ## Design goals
 
