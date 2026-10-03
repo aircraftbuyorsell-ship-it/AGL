@@ -82,6 +82,7 @@ AGL should reference and map to these mechanisms rather than recreate them.
 - [Gap Matrix](reference/AGL-GAP-MATRIX-v1.md)
 - [Conformance Model](CONFORMANCE.md)
 - [Roadmap](ROADMAP.md)
+- [Current Checkpoint](CHECKPOINT-2026-10-03.md)
 
 ## Machine-readable artifacts
 
