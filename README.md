@@ -82,6 +82,7 @@ AGL should reference and map to these mechanisms rather than recreate them.
 - [Measurement Unit](reference/AGL-MEASUREMENT-UNIT-v1.md)
 - [Gap Analysis](reference/AGL-GAP-ANALYSIS-v1.md)
 - [Gap Matrix](reference/AGL-GAP-MATRIX-v1.md)
+- [Interoperability & Standards Mapping](reference/AGL-INTEROPERABILITY-STANDARDS-MAPPING-v1.md)
 - [Conformance Model](CONFORMANCE.md)
 - [Roadmap](ROADMAP.md)
 - [Current Checkpoint](CHECKPOINT-2026-10-03.md)
