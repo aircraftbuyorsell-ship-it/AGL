@@ -163,6 +163,31 @@ assert.ok(
   "execution evidence must reference the execution"
 );
 
+const measurements = graph.measurements ?? [];
+const measurementIds = new Set(measurements.map((measurement) => measurement.measurement_id));
+for (const measurementRef of graph.execution.measurement_refs ?? []) {
+  assert.ok(measurementIds.has(measurementRef), `execution measurement reference missing: ${measurementRef}`);
+}
+for (const measurement of measurements) {
+  assert.ok(
+    measurement.evidence_refs.every((ref) => graph.evidence.some((evidence) => evidence.evidence_id === ref)),
+    `measurement evidence reference missing: ${measurement.measurement_id}`
+  );
+  if (measurement.processing?.total_processed_tokens !== undefined) {
+    assert.ok(measurement.processing.total_processed_tokens >= 0);
+  }
+  if (measurement.processing?.normalized_quantity !== undefined) {
+    assert.ok(measurement.processing.normalization_factor > 0);
+  }
+  if (measurement.measurement_state === "unavailable") {
+    assert.notEqual(
+      measurement.quantity,
+      0,
+      `unavailable measurements must not silently encode missing telemetry as zero: ${measurement.measurement_id}`
+    );
+  }
+}
+
 console.log("AGL reconstruction test: PASS");
 console.log("reconstructed nodes:", lineage.length);
 console.log("output:", outputId);
