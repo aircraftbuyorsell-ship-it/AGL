@@ -1,53 +1,42 @@
 # AGL-01 Cross-Track Validation Matrix
 
-Status: Preliminary validation
-Sources: RFC-001 extraction + ABOS gateway/src/apl.js
+Status: Reconciled release-candidate validation
+Date: 2026-10-03
 
-| Concept | RFC-001 | ABOS implementation | AGL interpretation | Status |
+| Concept | RFC-001 | ABOS implementation | AGL Core | Status |
 |---|---|---|---|---|
-| Identity | APL namespace / agent identity | apl_id, manifest identity | actor identity | ALIGN |
+| Identity | APL namespace / agent identity | manifest identity / apl_id | actor identity | ALIGN |
 | Capability | capability declaration | capabilities | capability | ALIGN |
-| Permission | allowed/denied permissions | permissions, checkPermissions() | permission/authority boundary | ALIGN |
-| Policy | permission/risk/policy checks | validateManifest, checkCapability, checkPermissions, checkRisk | policy evaluation | ALIGN |
-| Invocation | APL request/message | callAplTool() | governed operation | ALIGN |
-| Execution gate | checks before execution | governance loop before execute() | authorization precedes execution | ALIGN |
-| Denial | permission/policy errors | if(check) return | DENY blocks execution | ALIGN |
-| Human approval | security/policy material | requires_human_approval + context gate | approval decision | PARTIAL |
-| Delegation | multi-agent workflow / authority concepts | no complete generic delegation input | bounded delegation | GAP |
-| Trust | verification/certificates/trust levels | trust manifest metadata | trust as policy input | PARTIAL |
-| Evidence | audit/output concepts | provenance + confidence + audit envelope | ADL evidence | ALIGN |
-| Audit integrity | audit trail/security | SHA-256 event chain; KV persistence optional | integrity boundary | PARTIAL |
-| Correlation | workflow/request context | not fully represented in apl.js response | ADL correlation | GAP |
-| A2A | explicit agent-to-agent communication | no direct A2A runtime in apl.js | A2A mapping | GAP |
-| MCP | tool access layer | generated MCP surface | governed MCP boundary | ALIGN |
-| Registry | RFC registry concept | in-process manifest registry | discovery/registry binding | PARTIAL |
-| Errors | APL error codes | APL error objects | protocol/policy errors | ALIGN |
-| Formal grammar | protocol/message concepts | JSON/tool schemas, no complete ABNF | normative grammar | GAP |
-| Session/state | communication/context concepts | largely stateless gateway | correlation/execution context | PARTIAL |
-| Provenance | source/trust/audit concepts | evidence provenance | evidence provenance | ALIGN |
+| Permission | allowed/denied permissions | permission checks | bounded authority | ALIGN |
+| Policy | policy/permission/risk checks | validate/check functions | policy evaluation | ALIGN |
+| Invocation | APL request/message | callAplTool | governed operation | ALIGN |
+| Execution gate | pre-execution checks | governance before execute | authorization precedes execution | ALIGN |
+| Denial | permission/policy errors | early return | DENY blocks execution | ALIGN |
+| Human approval | security/policy material | approval gate exists | approval is authorization event | PARTIAL |
+| Delegation | multi-agent authority concepts | incomplete generic chain | bounded delegation | DEFINED / GAP |
+| Trust | verification/certificates/trust | manifest trust metadata | trust is policy input | ALIGN |
+| Evidence | audit/output concepts | evidence/audit envelope | ADL binding | ALIGN |
+| Audit integrity | audit/security | hash chain, persistence optional | integrity boundary | PARTIAL |
+| Correlation | request/workflow context | incomplete in apl.js | required linkage | DEFINED / GAP |
+| A2A | agent communication | no direct runtime | governance envelope | DEFINED / GAP |
+| MCP | tool access | generated MCP surface | governed MCP boundary | ALIGN |
+| Registry | registry concept | in-process manifest registry | discovery binding | PARTIAL |
+| Errors | APL error concepts | APL errors | compatibility vocabulary | ALIGN |
+| Formal grammar | structured protocol examples | JSON/tool schemas | no invented ABNF | OPEN |
+| Session/state | context concepts | largely stateless | correlation, no session requirement | ALIGN |
+| Provenance | source/trust/audit | evidence provenance | ADL provenance | ALIGN |
+| Manifest/runtime distinction | manifest declaration | manifest drives checks | runtime decision authoritative | RESOLVED |
 
 ## Reconciliation rules
 
-1. RFC-001 semantics define source intent.
-2. Existing ABOS behavior validates implementation feasibility but does not redefine generic AGL semantics.
-3. ABOS-only aviation concepts remain outside AGL core.
-4. Missing implementation behavior is recorded as GAP, not silently inferred.
-5. Implementation extensions are documented separately from normative requirements.
-6. No ABNF or A2A semantics are invented where source material is incomplete.
+1. RFC-001 establishes source intent.
+2. ABOS implementation establishes implementation evidence, not generic AGL semantics.
+3. AGL core remains domain-neutral.
+4. Missing behavior is a GAP, not an inferred capability.
+5. MCP/A2A transport semantics remain outside APL Core.
+6. Manifest declarations do not substitute for runtime authorization.
+7. No formal grammar is invented where the source is insufficient.
 
-## Current conclusion
+## Release-candidate conclusion
 
-The tracks are consistent on the central governance invariant:
-
-Identity → Capability → Permission/Policy → Decision → Execution → Evidence
-
-Main unresolved areas before AGL-01 v1.0:
-
-- formal grammar;
-- generic delegation semantics;
-- complete A2A model;
-- correlation/session contract;
-- exact compact-pack protocol definitions;
-- precise distinction between manifest metadata and runtime authorization.
-
-These are reconciliation items, not reasons to rebuild the existing ABOS gateway.
+The semantic APL Core is reconciled. Remaining OPEN/GAP items are implementation/source-closure work and remain explicitly labeled.
