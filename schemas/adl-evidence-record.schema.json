@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aircraftbuyorsell-ship-it/AGL/blob/main/schemas/adl-evidence-record.schema.json",
+  "title": "ADL Evidence Record",
+  "description": "Minimal machine-readable evidence record for AGL ADL v0.1.0.",
+  "type": "object",
+  "required": [
+    "id",
+    "timestamp",
+    "event_type",
+    "actor",
+    "status",
+    "correlation_id"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "AUTHORIZATION_REQUEST",
+        "AUTHORIZATION_DECISION",
+        "DELEGATION_CREATED",
+        "DELEGATION_REVOKED",
+        "APPROVAL_REQUESTED",
+        "APPROVAL_GRANTED",
+        "APPROVAL_DENIED",
+        "EXECUTION_STARTED",
+        "EXECUTION_COMPLETED",
+        "EXECUTION_FAILED",
+        "EXECUTION_BLOCKED",
+        "EVIDENCE_ATTACHED",
+        "VERIFICATION_COMPLETED",
+        "ESCALATION_CREATED"
+      ]
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["agent", "human", "service", "system"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "delegation_chain": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "apl_decision": {
+      "type": "string",
+      "enum": ["ALLOW", "DENY", "REQUIRE_HUMAN_APPROVAL", "ESCALATE"]
+    },
+    "action": { "type": "string" },
+    "target": { "type": ["string", "object"] },
+    "context": { "type": "object" },
+    "input_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "output_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approval": { "type": "object" },
+    "verification": { "type": "object" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "AUTHORIZED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "BLOCKED",
+        "CANCELLED",
+        "ESCALATED"
+      ]
+    },
+    "correlation_id": { "type": "string", "minLength": 1 },
+    "policy_version": { "type": "string" },
+    "apl_version": { "type": "string" },
+    "integrity": { "type": "object" }
+  },
+  "additionalProperties": true
+}
