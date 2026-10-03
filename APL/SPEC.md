@@ -39,7 +39,7 @@ Application / Agent
  governed execution
        |
        v
-      ADL
+      AEL
  evidence / provenance / audit
 ```
 
@@ -161,7 +161,7 @@ Reference modes:
 - `HUMAN_REQUIRED`
 - `FORBIDDEN`
 
-Human approval is an authorization event and should therefore be recorded by ADL.
+Human approval is an authorization event and should therefore be recorded by AEL.
 
 ## 6. Trust and Identity
 
@@ -177,9 +177,9 @@ Trust is an input to policy evaluation; trust status alone does not authorize an
 
 ## 7. Manifest
 
-An APL Agent Manifest is the machine-readable declaration of an agent's identity, capabilities, model metadata, permissions, trust metadata and audit requirements.
+An ADL agent definition is the machine-readable declaration of an agent's identity, capabilities and declared boundaries. APL consumes that definition as an input to runtime authorization.
 
-A minimal interoperable manifest is defined in `schemas/apl-agent-manifest.schema.json`.
+The current AGL compatibility manifest is defined in `schemas/apl-agent-manifest.schema.json`. This file is a legacy APL-shaped manifest and may be replaced by an explicit ADL mapping.
 
 The manifest MUST NOT be interpreted as proof that every declared permission is currently valid. Runtime authorization remains authoritative.
 
@@ -189,11 +189,11 @@ APL is enforced before a governed operation reaches its execution target.
 
 For MCP:
 
-`request → APL policy decision → MCP invocation → result → ADL evidence`
+`request → APL policy decision → MCP invocation → result → AEL evidence`
 
 For A2A:
 
-`request → identity/delegation/policy evaluation → A2A task/message → result → ADL evidence`
+`request → identity/delegation/policy evaluation → A2A task/message → result → AEL evidence`
 
 An implementation may enforce APL in a gateway, sidecar, middleware layer, agent runtime or equivalent control point.
 
