@@ -19,7 +19,7 @@ AGL sources:
 - `APL/AGL-01-APL-Core-Spec.md`
 - `APL/AGL-01-APL-MCP-Model.md`
 
-The requested `APL_core_compact_pack.zip` was not found in the searchable Library. No compact-pack-only semantics are promoted to normative status.
+The compact source set is present in the Library: `apl_core_skill.md`, `apl_core_compact.pretty.json`, `apl_core_compact.min.json`, and `apl_core_compact.min.json.gz`. These sources are now included in the AGL-01 source set.
 
 ## 2. Reconciled core
 
