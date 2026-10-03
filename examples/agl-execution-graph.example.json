@@ -30,7 +30,8 @@
     "root_actor": "agent-abos-verification",
     "root_policy": "policy-aircraft-verification-v1",
     "authorization_decision": "authz-demo-001",
-    "graph_root": "node-execution-001"
+    "graph_root": "node-execution-001",
+    "evidence_refs": ["evidence-execution-001", "evidence-registry-001"]
   },
   "nodes": [
     {"node_id":"node-execution-001","node_type":"execution","name":"Aircraft verification execution"},
@@ -49,8 +50,8 @@
     {"node_id":"output-verification-result","node_type":"output_effect","name":"Aircraft verification result"}
   ],
   "edges": [
-    {"edge_id":"edge-001","source":"actor-buyer-001","relation":"uses","target":"node-execution-001"},
-    {"edge_id":"edge-002","source":"agent-abos-verification","relation":"executed_by","target":"node-execution-001"},
+    {"edge_id":"edge-001","source":"node-execution-001","relation":"uses","target":"actor-buyer-001"},
+    {"edge_id":"edge-002","source":"node-execution-001","relation":"executed_by","target":"agent-abos-verification"},
     {"edge_id":"edge-003","source":"node-execution-001","relation":"contains","target":"workflow-registry-check"},
     {"edge_id":"edge-004","source":"workflow-registry-check","relation":"contains","target":"task-registry-lookup"},
     {"edge_id":"edge-005","source":"task-registry-lookup","relation":"uses","target":"skill-aircraft-lookup"},
