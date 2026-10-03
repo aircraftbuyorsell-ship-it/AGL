@@ -5,33 +5,70 @@
   "description": "Machine-validatable governance and evidence graph for reconstructing an autonomous or agentic service execution.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["agl_version", "execution_id", "service", "execution", "nodes", "edges", "evidence"],
+  "required": [
+    "agl_version",
+    "execution_id",
+    "service",
+    "execution",
+    "nodes",
+    "edges",
+    "evidence"
+  ],
   "properties": {
-    "agl_version": { "type": "string", "const": "0.1.0" },
-    "execution_id": { "$ref": "#/$defs/id" },
-    "service": { "$ref": "#/$defs/service" },
-    "authority": { "$ref": "#/$defs/authority" },
-    "mission": { "$ref": "#/$defs/mission" },
-    "execution": { "$ref": "#/$defs/execution" },
+    "agl_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "execution_id": {
+      "$ref": "#/$defs/id"
+    },
+    "service": {
+      "$ref": "#/$defs/service"
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "mission": {
+      "$ref": "#/$defs/mission"
+    },
+    "execution": {
+      "$ref": "#/$defs/execution"
+    },
     "nodes": {
       "type": "array",
-      "items": { "$ref": "#/$defs/node" }
+      "items": {
+        "$ref": "#/$defs/node"
+      }
     },
     "edges": {
       "type": "array",
-      "items": { "$ref": "#/$defs/edge" }
+      "items": {
+        "$ref": "#/$defs/edge"
+      }
     },
     "evidence": {
       "type": "array",
-      "items": { "$ref": "#/$defs/evidence" }
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
     },
     "incidents": {
       "type": "array",
-      "items": { "$ref": "#/$defs/incident" }
+      "items": {
+        "$ref": "#/$defs/incident"
+      }
     },
     "claims": {
       "type": "array",
-      "items": { "$ref": "#/$defs/claim" }
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/measurement"
+      }
     }
   },
   "$defs": {
@@ -61,68 +98,143 @@
     "service": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["service_id"],
+      "required": [
+        "service_id"
+      ],
       "properties": {
-        "service_id": { "$ref": "#/$defs/id" },
-        "name": { "type": "string" },
-        "version": { "type": "string" },
-        "provider": { "$ref": "#/$defs/id" },
-        "contract_ref": { "$ref": "#/$defs/id" },
-        "sla_ref": { "$ref": "#/$defs/id" }
+        "service_id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "provider": {
+          "$ref": "#/$defs/id"
+        },
+        "contract_ref": {
+          "$ref": "#/$defs/id"
+        },
+        "sla_ref": {
+          "$ref": "#/$defs/id"
+        }
       }
     },
     "authority": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["authority_id"],
+      "required": [
+        "authority_id"
+      ],
       "properties": {
-        "authority_id": { "$ref": "#/$defs/id" },
+        "authority_id": {
+          "$ref": "#/$defs/id"
+        },
         "type": {
           "type": "string",
-          "enum": ["contract", "sla", "policy", "delegation", "mandate", "other"]
+          "enum": [
+            "contract",
+            "sla",
+            "policy",
+            "delegation",
+            "mandate",
+            "other"
+          ]
         },
-        "reference": { "type": "string" },
-        "valid_from": { "$ref": "#/$defs/timestamp" },
-        "valid_until": { "$ref": "#/$defs/timestamp" }
+        "reference": {
+          "type": "string"
+        },
+        "valid_from": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "valid_until": {
+          "$ref": "#/$defs/timestamp"
+        }
       }
     },
     "mission": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["mission_id"],
+      "required": [
+        "mission_id"
+      ],
       "properties": {
-        "mission_id": { "$ref": "#/$defs/id" },
-        "objective": { "type": "string" },
-        "use_case": { "type": "string" },
-        "requested_by": { "$ref": "#/$defs/id" }
+        "mission_id": {
+          "$ref": "#/$defs/id"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "use_case": {
+          "type": "string"
+        },
+        "requested_by": {
+          "$ref": "#/$defs/id"
+        }
       }
     },
     "execution": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["started_at", "status"],
+      "required": [
+        "started_at",
+        "status"
+      ],
       "properties": {
-        "started_at": { "$ref": "#/$defs/timestamp" },
-        "ended_at": { "$ref": "#/$defs/timestamp" },
-        "status": { "$ref": "#/$defs/status" },
-        "initiator": { "$ref": "#/$defs/id" },
-        "root_actor": { "$ref": "#/$defs/id" },
-        "root_policy": { "$ref": "#/$defs/id" },
-        "authorization_decision": { "$ref": "#/$defs/id" },
-        "graph_root": { "$ref": "#/$defs/id" },
+        "started_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "ended_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "initiator": {
+          "$ref": "#/$defs/id"
+        },
+        "root_actor": {
+          "$ref": "#/$defs/id"
+        },
+        "root_policy": {
+          "$ref": "#/$defs/id"
+        },
+        "authorization_decision": {
+          "$ref": "#/$defs/id"
+        },
+        "graph_root": {
+          "$ref": "#/$defs/id"
+        },
         "evidence_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/id" }
+          "items": {
+            "$ref": "#/$defs/id"
+          }
         },
-        "parent_execution_id": { "$ref": "#/$defs/id" }
+        "parent_execution_id": {
+          "$ref": "#/$defs/id"
+        },
+        "measurement_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
       }
     },
     "node": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["node_id", "node_type"],
+      "required": [
+        "node_id",
+        "node_type"
+      ],
       "properties": {
-        "node_id": { "$ref": "#/$defs/id" },
+        "node_id": {
+          "$ref": "#/$defs/id"
+        },
         "node_type": {
           "type": "string",
           "enum": [
@@ -151,11 +263,17 @@
             "claim"
           ]
         },
-        "name": { "type": "string" },
-        "version": { "type": "string" },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
         "external_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/external_ref" }
+          "items": {
+            "$ref": "#/$defs/external_ref"
+          }
         },
         "attributes": {
           "type": "object",
@@ -166,10 +284,19 @@
     "edge": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["edge_id", "source", "relation", "target"],
+      "required": [
+        "edge_id",
+        "source",
+        "relation",
+        "target"
+      ],
       "properties": {
-        "edge_id": { "$ref": "#/$defs/id" },
-        "source": { "$ref": "#/$defs/id" },
+        "edge_id": {
+          "$ref": "#/$defs/id"
+        },
+        "source": {
+          "$ref": "#/$defs/id"
+        },
         "relation": {
           "type": "string",
           "enum": [
@@ -201,59 +328,116 @@
             "deployed_as"
           ]
         },
-        "target": { "$ref": "#/$defs/id" },
-        "observed_at": { "$ref": "#/$defs/timestamp" },
+        "target": {
+          "$ref": "#/$defs/id"
+        },
+        "observed_at": {
+          "$ref": "#/$defs/timestamp"
+        },
         "evidence_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/id" }
+          "items": {
+            "$ref": "#/$defs/id"
+          }
         }
       }
     },
     "external_ref": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["system", "ref"],
+      "required": [
+        "system",
+        "ref"
+      ],
       "properties": {
-        "system": { "type": "string" },
-        "ref": { "type": "string" },
-        "relation": { "type": "string" }
+        "system": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "relation": {
+          "type": "string"
+        }
       }
     },
     "evidence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["evidence_id", "producer", "created_at", "subject"],
+      "required": [
+        "evidence_id",
+        "producer",
+        "created_at",
+        "subject"
+      ],
       "properties": {
-        "evidence_id": { "$ref": "#/$defs/id" },
-        "producer": { "$ref": "#/$defs/id" },
-        "created_at": { "$ref": "#/$defs/timestamp" },
-        "subject": { "$ref": "#/$defs/id" },
-        "type": { "type": "string" },
-        "source": { "type": "string" },
-        "content_digest": { "type": "string" },
-        "schema_ref": { "type": "string" },
+        "evidence_id": {
+          "$ref": "#/$defs/id"
+        },
+        "producer": {
+          "$ref": "#/$defs/id"
+        },
+        "created_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "subject": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "content_digest": {
+          "type": "string"
+        },
+        "schema_ref": {
+          "type": "string"
+        },
         "integrity_status": {
           "type": "string",
-          "enum": ["verified", "unverified", "invalid", "unknown"]
+          "enum": [
+            "verified",
+            "unverified",
+            "invalid",
+            "unknown"
+          ]
         },
         "external_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/external_ref" }
+          "items": {
+            "$ref": "#/$defs/external_ref"
+          }
         }
       }
     },
     "incident": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["incident_id", "status"],
+      "required": [
+        "incident_id",
+        "status"
+      ],
       "properties": {
-        "incident_id": { "$ref": "#/$defs/id" },
+        "incident_id": {
+          "$ref": "#/$defs/id"
+        },
         "status": {
           "type": "string",
-          "enum": ["open", "investigating", "resolved", "closed"]
+          "enum": [
+            "open",
+            "investigating",
+            "resolved",
+            "closed"
+          ]
         },
-        "description": { "type": "string" },
-        "execution_ref": { "$ref": "#/$defs/id" },
+        "description": {
+          "type": "string"
+        },
+        "execution_ref": {
+          "$ref": "#/$defs/id"
+        },
         "cause_candidates": {
           "type": "array",
           "items": {
@@ -279,25 +463,180 @@
         },
         "evidence_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/id" }
+          "items": {
+            "$ref": "#/$defs/id"
+          }
         }
       }
     },
     "claim": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["claim_id", "statement"],
+      "required": [
+        "claim_id",
+        "statement"
+      ],
       "properties": {
-        "claim_id": { "$ref": "#/$defs/id" },
-        "statement": { "type": "string" },
-        "subject": { "$ref": "#/$defs/id" },
+        "claim_id": {
+          "$ref": "#/$defs/id"
+        },
+        "statement": {
+          "type": "string"
+        },
+        "subject": {
+          "$ref": "#/$defs/id"
+        },
         "status": {
           "type": "string",
-          "enum": ["asserted", "supported", "disputed", "unresolved", "rejected"]
+          "enum": [
+            "asserted",
+            "supported",
+            "disputed",
+            "unresolved",
+            "rejected"
+          ]
         },
         "evidence_refs": {
           "type": "array",
-          "items": { "$ref": "#/$defs/id" }
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "measurement_id",
+        "use_case",
+        "measurement_type",
+        "quantity",
+        "unit",
+        "measurement_state",
+        "scope",
+        "evidence_refs"
+      ],
+      "properties": {
+        "measurement_id": {
+          "$ref": "#/$defs/id"
+        },
+        "use_case": {
+          "$ref": "#/$defs/id"
+        },
+        "measurement_type": {
+          "type": "string",
+          "enum": [
+            "processing_volume",
+            "resource_consumption",
+            "outcome",
+            "governance_overhead"
+          ]
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_state": {
+          "type": "string",
+          "enum": [
+            "measured",
+            "estimated",
+            "partial",
+            "unavailable",
+            "invalid",
+            "disputed"
+          ]
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "period_start",
+            "period_end"
+          ],
+          "properties": {
+            "period_start": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "period_end": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "execution_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "service_id": {
+              "$ref": "#/$defs/id"
+            },
+            "agent_id": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        "processing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_processed_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tokenization_method": {
+              "type": "string"
+            },
+            "tokenization_version": {
+              "type": "string"
+            },
+            "normalized_unit": {
+              "type": "string"
+            },
+            "normalization_factor": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "normalized_quantity": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "calculation_method": {
+          "type": "string"
+        },
+        "calculation_version": {
+          "type": "string"
+        },
+        "generated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "integrity": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
         }
       }
     }
