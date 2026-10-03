@@ -10,6 +10,7 @@ on:
       - "examples/agl-measurement.example.json"
       - "adapters/opentelemetry/**"
       - "adapters/openlineage/**"
+      - "adapters/prov/**"
       - ".github/workflows/agl-execution-graph-validation.yml"
 
 jobs:
@@ -83,3 +84,5 @@ jobs:
         run: node adapters/opentelemetry/test/otel-to-agl.test.mjs
       - name: Run OpenLineage adapter test
         run: node adapters/openlineage/test/openlineage-to-agl.test.mjs
+      - name: Run W3C PROV adapter test
+        run: node adapters/prov/test/prov-to-agl.test.mjs
