@@ -145,3 +145,59 @@ Recommended model/reasoning: gpt-5.6 / high.
 Read this checkpoint and the COMMAND-02 report. Treat historical CI as REFERENCE
 evidence only. Do not claim ABOS runtime conformance without attributable execution
 and AEL evidence. Proceed only with COMMAND-02B; do not restart COMMAND-02.
+
+## 2026-10-06 — COMMAND-02B / authority attenuation
+
+- Command status: COMPLETED WITH FAILED/BLOCKED GATE.
+- Observation timestamp: 2026-10-06T21:28:53Z.
+- Scope: COMMAND-02B only; no implementation; COMMAND-03 not started.
+- AGL input HEAD: `e8a9fe18b37a0a6ca8fedeed5e0a00f2db477f7f`.
+- AGL source baseline: `9c4c5f3eb54a363faee2fdf6aaed82884bb82e80`.
+- ABOS current main: `005c9aeb31782f4a0fcbf00f21e30b592cc60db4`.
+- Historical reference: `401dabfea8db375ae65f82df4f4f1e7fea294dee`.
+- Requested/recommended model: gpt-5.6 / high. The supplied CLI text did not
+  change the chat model.
+
+### Verified
+
+Current ABOS blocks circular/over-depth delegation, undeclared skills and
+rejected/expired approvals. It does not compare child authority with parent or
+human root authority. `authorization_root_id` and `parent_authorization_id` are
+absent from current ABOS, the historical reference and current AGL schemas/code.
+
+Current and historical attenuation characterization: 15 tests, 3 PASS and
+12 FAIL at each revision. Existing workflow governance tests remain 28/28 PASS
+at each revision; their coverage stops at workflow membership, loop/depth and
+basic approval state.
+
+### Evidence scopes
+
+- STATIC: FAIL — semantics are documented, machine contracts are incomplete.
+- REFERENCE: FAIL — privilege/resource/argument expansion and mismatched approval
+  are admitted; lineage is not persisted or reconstructable.
+- ABOS_RUNTIME: BLOCKED — no attributable test/staging authorization execution.
+- Authority attenuation: NOT CONFORMANT.
+
+Full report:
+[COMMAND-02B-AUTHORITY-ATTENUATION-2026-10-06.md](COMMAND-02B-AUTHORITY-ATTENUATION-2026-10-06.md).
+
+Characterization test:
+[COMMAND-02B-AUTHORITY-ATTENUATION.characterization.test.mjs](COMMAND-02B-AUTHORITY-ATTENUATION.characterization.test.mjs).
+
+### Changes
+
+Report, checkpoint and focused characterization test only. No runtime, schema,
+architecture or production implementation was changed.
+
+### ONE next_action
+
+Run COMMAND-03 for I-01 OpenTelemetry only. Audit official requirements against
+the existing adapter/mapping/tests and stop before I-02.
+
+Recommended model/reasoning: gpt-5.6 / medium.
+
+### Resume rule
+
+Read this checkpoint and the COMMAND-02B report. Preserve the 3/15 and 28/28
+results with their distinct meanings. Do not implement the recorded fix during
+COMMAND-03. Audit I-01 only and stop.
