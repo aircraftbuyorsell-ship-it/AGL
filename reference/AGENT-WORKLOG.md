@@ -91,3 +91,57 @@ Recommended model/reasoning: gpt-5.6 / high.
 Read this checkpoint and the inventory report. Verify relevant diffs against
 9c4c5f3eb54a363faee2fdf6aaed82884bb82e80. Reuse unaffected inventory and historical CI evidence with attribution.
 Proceed only with the next_action above; do not restart COMMAND-01.
+
+## 2026-10-06 — COMMAND-02 / AGL CORE against ABOS
+
+- Command status: COMPLETED WITH FAILED/BLOCKED GATE.
+- Scope: COMMAND-02 only; COMMAND-02B not started.
+- AGL source baseline: `9c4c5f3eb54a363faee2fdf6aaed82884bb82e80`.
+- ABOS current main: `005c9aeb31782f4a0fcbf00f21e30b592cc60db4`.
+- Historical green reference: `401dabfea8db375ae65f82df4f4f1e7fea294dee`.
+- Requested/recommended model: gpt-5.6 / high. The supplied CLI text did not
+  change the chat model.
+
+### Verified
+
+AGL issue #9 references real ABOS test and workflow commits. The latest verified
+historical run of the dedicated workflow succeeded, but it executed nine static
+source-contract guards only. Current ABOS `main` no longer contains the dedicated
+CORE test, workflow, AGL adapter or ServiceExecutionRecord capture path.
+
+Historical CORE test: 9/9 PASS. Replayed against current source: 6/9 PASS and
+3 FAIL. Current workflow-governance unit tests: 28/28 PASS. Historical adapter
+and SER source tests: 4/4 PASS.
+
+The ABOS adapter graph fails the current AGL schema because `metadata` is an
+unrecognized top-level property. It also has unresolved evidence references, no
+direct execution-to-output `produces` edge, no root policy and no reconstructable
+lineage from the claimed output.
+
+### REFERENCE / ABOS_RUNTIME
+
+- REFERENCE: FAIL for current `main`; historical static baseline only.
+- ABOS_RUNTIME: BLOCKED / no attributable runtime evidence captured.
+- CORE gate: NOT CONFORMANT.
+
+Full report:
+[COMMAND-02-ABOS-CORE-2026-10-06.md](COMMAND-02-ABOS-CORE-2026-10-06.md).
+
+### Changes
+
+Documentation and checkpoint only. No ABOS files, AGL architecture, production
+systems or attenuation behavior were changed.
+
+### ONE next_action
+
+Run COMMAND-02B only. Inspect current and historical authorization/delegation
+lineage, test fail-closed attenuation, and record the minimal gaps for
+`authorization_root_id` and `parent_authorization_id`. Do not implement fixes.
+
+Recommended model/reasoning: gpt-5.6 / high.
+
+### Resume rule
+
+Read this checkpoint and the COMMAND-02 report. Treat historical CI as REFERENCE
+evidence only. Do not claim ABOS runtime conformance without attributable execution
+and AEL evidence. Proceed only with COMMAND-02B; do not restart COMMAND-02.
