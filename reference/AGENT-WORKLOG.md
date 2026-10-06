@@ -267,3 +267,67 @@ Recommended model/reasoning: gpt-5.6 / medium.
 Read this checkpoint and the I-01 report. Preserve the distinction between the
 passing smoke assertion and failed official-format characterization. Do not
 implement the recorded I-01 fixes while auditing I-02. Stop before I-03.
+
+## 2026-10-06 — COMMAND-03 / I-02 OpenLineage
+
+- Command status: COMPLETED WITH FAILED/BLOCKED CONFORMANCE.
+- Observation timestamp: 2026-10-06T22:32:47Z.
+- Scope: COMMAND-03 for I-02 only; no implementation; I-03 and COMMAND-04 not started.
+- AGL input HEAD: `b9a025a7171ea2229ce5ad1ff589001604f748a2`.
+- AGL source baseline: `9c4c5f3eb54a363faee2fdf6aaed82884bb82e80`.
+- ABOS current reference: `005c9aeb31782f4a0fcbf00f21e30b592cc60db4`.
+- ABOS historical reference: `401dabfea8db375ae65f82df4f4f1e7fea294dee`.
+- Requested/recommended model: gpt-5.6 / medium. The supplied CLI text did not
+  change the chat model.
+
+### Verified
+
+The repository contains a narrow OpenLineage RunEvent-to-AGL converter. It
+preserves valid run/job/dataset references and produces all required top-level
+graph fields. The existing smoke test passes.
+
+The current official contract is not met. The adapter accepts invalid UUIDs,
+timestamps and event types; invents required identities and source metadata;
+treats `OTHER`/unknown as running; mistakes every event time for `started_at`;
+does not aggregate the run lifecycle; reverses the input `consumes` relationship;
+duplicates nodes; discards facets/parent hierarchy; and leaves the evidence
+producer unresolved in the graph.
+
+Existing smoke test: PASS. Focused characterization: 17 tests, 3 PASS and 14
+FAIL.
+
+### Evidence scopes
+
+- STATIC: FAIL — partial implementation exists, but official validation,
+  lifecycle, facet/hierarchy and AGL reconstruction contracts are not met.
+- REFERENCE: FAIL — the narrow fixture passes; the focused current-schema suite
+  fails 14 checks, and verified ABOS references contain no OpenLineage integration.
+- ABOS_RUNTIME: BLOCKED — no attributable ABOS event transport/backend/adapter/
+  AEL reconstruction chain was available.
+- I-02: IMPLEMENTED (partial), not TESTED against the current contract, not
+  CONFORMANT.
+
+Full report:
+[COMMAND-03-I-02-OPENLINEAGE-2026-10-06.md](COMMAND-03-I-02-OPENLINEAGE-2026-10-06.md).
+
+Characterization test:
+[COMMAND-03-I-02-OPENLINEAGE.characterization.test.mjs](COMMAND-03-I-02-OPENLINEAGE.characterization.test.mjs).
+
+### Changes
+
+Report, checkpoint and focused characterization test only. No adapter, mapping,
+schema, CI, ABOS source or production/runtime behavior was changed.
+
+### ONE next_action
+
+Run COMMAND-03 for I-03 W3C PROV only. Audit official W3C Recommendations and
+repositories against the existing adapter/mapping/schemas/tests, keep STATIC /
+REFERENCE / ABOS_RUNTIME separate, and stop before I-04 and COMMAND-04.
+
+Recommended model/reasoning: gpt-5.6 / medium.
+
+### Resume rule
+
+Read this checkpoint and the I-02 report. Preserve the distinction between a
+passing synthetic smoke assertion and failed official-contract characterization.
+Do not implement I-02 fixes while auditing I-03. Stop before I-04.
