@@ -331,3 +331,67 @@ Recommended model/reasoning: gpt-5.6 / medium.
 Read this checkpoint and the I-02 report. Preserve the distinction between a
 passing synthetic smoke assertion and failed official-contract characterization.
 Do not implement I-02 fixes while auditing I-03. Stop before I-04.
+
+## 2026-10-06 — COMMAND-03 / I-03 W3C PROV
+
+- Command status: COMPLETED WITH FAILED/BLOCKED CONFORMANCE.
+- Observation timestamp: 2026-10-06T23:14:34Z.
+- Scope: COMMAND-03 for I-03 only; no implementation; I-04 and COMMAND-04 not started.
+- AGL input HEAD: `10eeac292c97a4576a827d6a162516006263756a`.
+- AGL source baseline: `9c4c5f3eb54a363faee2fdf6aaed82884bb82e80`.
+- ABOS current reference: `005c9aeb31782f4a0fcbf00f21e30b592cc60db4`.
+- ABOS historical reference: `401dabfea8db375ae65f82df4f4f1e7fea294dee`.
+- Requested/recommended model: gpt-5.6 / medium. The supplied CLI text did not
+  change the chat model.
+
+### Verified
+
+PROV-DM, PROV-O, PROV-N and PROV-CONSTRAINTS are W3C Recommendations dated
+30 April 2013. The JSON representation cited by AGL is a separate PROV-JSON
+Member Submission dated 24 April 2013, not a W3C Recommendation.
+
+The adapter creates nodes for declared Entity/Activity/Agent objects and returns
+all required top-level graph fields. However, it does not read the published
+PROV-JSON `prov:*` relation members, so an official-shape fixture produces zero
+edges/evidence. The private smoke fixture passes but its edges do not resolve to
+declared nodes; generation also swaps entity/activity semantics and direction.
+
+Existing smoke test: PASS. Focused characterization: 19 tests, 3 PASS and 16
+FAIL.
+
+### Evidence scopes
+
+- STATIC: FAIL — implementation exists, but serialization/profile identity,
+  qualified names, PROV relations, bundles, constraints and export are incomplete.
+- REFERENCE: FAIL — synthetic smoke passes; published-format characterization
+  fails 16 checks, and verified ABOS references contain no W3C PROV integration.
+- ABOS_RUNTIME: BLOCKED — no attributable ABOS PROV exchange/adapter/AEL
+  reconstruction chain was available.
+- I-03: IMPLEMENTED (partial), not TESTED against the published representation,
+  not CONFORMANT.
+
+Full report:
+[COMMAND-03-I-03-W3C-PROV-2026-10-06.md](COMMAND-03-I-03-W3C-PROV-2026-10-06.md).
+
+Characterization test:
+[COMMAND-03-I-03-W3C-PROV.characterization.test.mjs](COMMAND-03-I-03-W3C-PROV.characterization.test.mjs).
+
+### Changes
+
+Report, checkpoint and focused characterization test only. No adapter, mapping,
+schema, CI, ABOS source or production/runtime behavior was changed.
+
+### ONE next_action
+
+Run COMMAND-03 for I-04 MCP only. Audit the official MCP specification and
+repositories against the existing adapter/mapping/schemas/tests, keep STATIC /
+REFERENCE / ABOS_RUNTIME separate, and stop before I-05 and COMMAND-04.
+
+Recommended model/reasoning: gpt-5.6 / medium.
+
+### Resume rule
+
+Read this checkpoint and the I-03 report. Preserve the distinction between W3C
+Recommendations and the PROV-JSON Member Submission, and between the passing
+private fixture and failed published-format characterization. Do not implement
+I-03 fixes while auditing I-04. Stop before I-05.
