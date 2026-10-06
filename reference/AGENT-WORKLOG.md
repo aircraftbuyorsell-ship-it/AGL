@@ -201,3 +201,69 @@ Recommended model/reasoning: gpt-5.6 / medium.
 Read this checkpoint and the COMMAND-02B report. Preserve the 3/15 and 28/28
 results with their distinct meanings. Do not implement the recorded fix during
 COMMAND-03. Audit I-01 only and stop.
+
+## 2026-10-06 — COMMAND-03 / I-01 OpenTelemetry
+
+- Command status: COMPLETED WITH FAILED/BLOCKED CONFORMANCE.
+- Observation timestamp: 2026-10-06T22:09:44Z.
+- Scope: COMMAND-03 for I-01 only; no implementation; I-02 and COMMAND-04 not started.
+- AGL input HEAD: `61f26a3799523b63a2be348c782f4e2ccd4cf193`.
+- AGL source baseline: `9c4c5f3eb54a363faee2fdf6aaed82884bb82e80`.
+- ABOS current reference: `005c9aeb31782f4a0fcbf00f21e30b592cc60db4`.
+- ABOS historical reference: `401dabfea8db375ae65f82df4f4f1e7fea294dee`.
+- Requested/recommended model: gpt-5.6 / medium. The supplied CLI text did not
+  change the chat model.
+
+### Verified
+
+The repository contains a narrow OTLP trace-to-AGL-fragment converter. It
+preserves valid trace/span references and reads simple service, execution and
+agent attributes. The existing one-span smoke test passes.
+
+The declared OTLP/HTTP JSON contract is not met: the test and implementation use
+string status enums although OTLP JSON requires integers. Numeric ERROR, UNSET
+and unknown statuses become `completed`. Multiple traces/resources are collapsed,
+span topology/content is lost, missing trace/service/time values are invented,
+and the returned fragment has no schema and lacks `agl_version` and `service`
+required by the full graph schema.
+
+Existing smoke test: PASS. Focused characterization: 11 tests, 2 PASS and 9
+FAIL. The second pass is numeric OK producing `completed` only through the
+adapter's unsafe default, not explicit enum support.
+
+### Evidence scopes
+
+- STATIC: FAIL — implementation exists, but its official-format, status,
+  no-invention, mapping and schema contracts are incomplete or violated.
+- REFERENCE: FAIL — smoke fixture is non-conformant OTLP JSON; current ABOS has no
+  OpenTelemetry correlation implementation and historical ABOS only has nullable
+  trace/span placeholders.
+- ABOS_RUNTIME: BLOCKED — no attributable ABOS export/collector/trace/evidence
+  chain was available.
+- I-01: IMPLEMENTED (partial), not TESTED against the declared contract, not
+  CONFORMANT.
+
+Full report:
+[COMMAND-03-I-01-OPENTELEMETRY-2026-10-06.md](COMMAND-03-I-01-OPENTELEMETRY-2026-10-06.md).
+
+Characterization test:
+[COMMAND-03-I-01-OPENTELEMETRY.characterization.test.mjs](COMMAND-03-I-01-OPENTELEMETRY.characterization.test.mjs).
+
+### Changes
+
+Report, checkpoint and focused characterization test only. No adapter, mapping,
+schema, CI, ABOS source or production/runtime behavior was changed.
+
+### ONE next_action
+
+Run COMMAND-03 for I-02 OpenLineage only. Audit official requirements against
+the existing adapter/mapping/schemas/tests, keep STATIC / REFERENCE /
+ABOS_RUNTIME separate, and stop before I-03 and COMMAND-04.
+
+Recommended model/reasoning: gpt-5.6 / medium.
+
+### Resume rule
+
+Read this checkpoint and the I-01 report. Preserve the distinction between the
+passing smoke assertion and failed official-format characterization. Do not
+implement the recorded I-01 fixes while auditing I-02. Stop before I-03.
