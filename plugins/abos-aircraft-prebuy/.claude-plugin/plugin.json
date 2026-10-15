@@ -1,0 +1,27 @@
+{
+  "name": "abos-aircraft-prebuy",
+  "displayName": "ABOS Aircraft Pre-Buy Advisor",
+  "version": "1.0.0",
+  "description": "Guides buyers and sellers of used general-aviation aircraft through listing triage, logbook and AD review, registry and title checks (FAA and EASA), pre-buy inspection planning, red flags and seller questions, ending in a structured pre-buy report.",
+  "author": {
+    "name": "Aircraft Buy Or Sell (ABOS)",
+    "url": "https://github.com/aircraftbuyorsell-ship-it/AGL"
+  },
+  "homepage": "https://github.com/aircraftbuyorsell-ship-it/AGL/tree/main/plugins/abos-aircraft-prebuy",
+  "repository": "https://github.com/aircraftbuyorsell-ship-it/AGL",
+  "documentationUrl": "https://github.com/aircraftbuyorsell-ship-it/AGL/tree/main/plugins/abos-aircraft-prebuy#readme",
+  "supportUrl": "https://github.com/aircraftbuyorsell-ship-it/AGL/issues",
+  "privacyPolicyUrl": "https://github.com/aircraftbuyorsell-ship-it/AGL/blob/main/plugins/abos-aircraft-prebuy/PRIVACY.md",
+  "license": "Apache-2.0",
+  "keywords": [
+    "aviation",
+    "aircraft",
+    "pre-buy",
+    "pre-purchase-inspection",
+    "logbook-review",
+    "airworthiness-directives",
+    "general-aviation",
+    "faa",
+    "easa"
+  ]
+}
